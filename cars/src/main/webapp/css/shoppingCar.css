@@ -1,0 +1,43 @@
+table th{
+	text-align:center;
+}
+table td{
+	text-align: center;
+	display:table-cell;
+	vertical-align: middle;
+}
+table td img{
+	width: auto;
+	height: 50px;
+	padding-right: 20px;
+}
+table td span.subtract,span.add{
+	border: 1px solid #CCCCCC;
+	padding: 5px 8px;
+	background: #FFFFFF;
+}
+table td  a{
+	color: #333333;
+	text-decoration: none;
+}
+table td  a:hover{
+	text-decoration: none;
+}
+table td  a:visited{
+	text-decoration: none;
+}
+table td.count input{
+	text-align: center;
+	width: 80px;
+	height: 30px;
+}
+.settlement{
+	background: #EEEEEE;
+	height: 50px;
+	line-height: 50px;
+}
+.settlement ul li{
+	list-style: none;
+	float: left;
+	padding-right: 55px;
+}

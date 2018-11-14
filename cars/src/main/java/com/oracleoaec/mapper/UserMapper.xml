@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracleoaec.mapper.UserMapper">
+	
+	<select id="login" resultType="hashMap" parameterType="hashMap">
+		select * from users where user_account = #{userAccount} and user_pwd = #{userPwd}
+	</select>
+	
+	<select id="queryAllUsers" resultType="hashMap">
+		select * from users u 
+		inner join roles r on r.role_id = u.role_id
+		inner join sex s on s.sex_id = u.sex_id
+		inner join dept d on d.dept_id = u.dept_id where u.user_status = 1
+	</select>
+	
+	<select id="findByPage" parameterType="Map" resultType="hashMap">
+		select * from(select a.*,rownum rn from(
+			select * from users u 
+			inner join roles r on r.role_id = u.role_id
+			inner join sex s on s.sex_id = u.sex_id
+			inner join dept d on d.dept_id = u.dept_id ) a
+			where rownum&lt;=#{pageNo}*#{pageSize}) where rn&gt;(#{pageNo}-1)*#{pageSize}
+    </select>
+
+	<insert id="insertUser" parameterType="com.oracleoaec.pojo.User">
+		insert into users(user_id,role_id,sex_id,dept_id,user_name,user_account,user_pwd,
+		user_tel,user_age,user_address,user_status)
+		values(seq_users.nextval,#{roleId},#{sexId},#{deptId},#{userName},#{userAccount},#{userPwd},
+			#{userTel},#{userAge},#{userAddress},1)
+	</insert>
+	
+	<update id="deleteUser" parameterType="int">
+		update users set user_status = 0 where user_id = #{userId}
+	</update>
+	
+	<select id="queryUserById" resultType="hashMap" parameterType="int">
+		select * from users where user_id = #{userId}
+	</select>
+	
+	<update id="updateUser" parameterType="com.oracleoaec.pojo.User">
+		update users set  role_id = #{roleId},sex_id=#{sexId},dept_id=#{deptId},user_name=#{userName},
+		user_account=#{userAccount},user_pwd=#{userPwd},user_tel=#{userTel},user_age=#{userAge},
+		user_address=#{userAddress}
+		where user_id = #{userId}
+	</update>
+	<!-- ,province_id=#{provinceId},city_id=#{cityId} -->
+</mapper>

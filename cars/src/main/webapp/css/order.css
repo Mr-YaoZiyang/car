@@ -1,0 +1,22 @@
+.table img{
+	height: 50px;
+	width: auto;
+}
+table th,td{
+	text-align: center;
+}
+.address{
+	width: 200px;
+	border: 5px #BCE8F1 dashed;
+	margin-bottom: 10px;
+}
+.settlement{
+    background: #EEEEEE;
+    height: 50px;
+    line-height: 50px;
+}
+.settlement ul li{
+    list-style: none;
+    float: left;
+    padding-right: 20px;
+}

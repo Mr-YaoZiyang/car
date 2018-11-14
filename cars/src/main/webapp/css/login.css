@@ -1,0 +1,34 @@
+.middel{
+            background: url('../img/pic.png') no-repeat 50%;
+            height:793px;
+            width: 100%;
+            margin:0 auto;
+        }
+        .middel .b1{
+            background: url('../img/word.png') no-repeat 250px 150px;
+            height:500px;
+            width: 100%;
+            margin:0 auto;
+        }
+        .content{
+            position: absolute;
+            top: 120px;
+            left: 870px;
+            width:343px;
+            height:420px;
+            background:rgba(255,255,255,.5);
+            -moz-box-shadow: 3px 3px 5px #ddd; /* 老的 Firefox */
+            box-shadow: 3px 3px 5px #ddd;
+        }
+        .content header{
+            height:150px;
+            width: 100%;
+            text-align:center;
+        }
+        .contentHeader{
+            background:url('../img/logo1.png') no-repeat 0;
+            width: 110px;
+            height: 110px;
+            margin:0 auto;
+            margin-top:20px;
+        }

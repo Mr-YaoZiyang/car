@@ -1,0 +1,91 @@
+.intro {
+	background: #f1f1f1;
+}
+
+.shop {
+	margin-top: 90px;
+	margin-bottom: 90px;
+}
+
+.shop img {
+	/* padding: 50px;
+	height: 500px;
+	width: auto; */
+
+	margin: auto;
+	position:absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.shop .col-md-4 {
+	height:450px;
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+}
+
+.shop .col-md-8 {
+	padding-left: 50px;
+}
+
+.shop .col-md-8 .name {
+	padding-bottom: 5px;
+}
+
+.shop .col-md-8 .detail {
+	color: #999;
+	border-bottom: #d0d0d0 1px dotted;
+	padding-bottom: 8px;
+	min-height: 42px;
+}
+
+.shop .col-md-8 .price {
+	padding: 20px 0;
+	border-bottom: #d0d0d0 1px dotted;
+}
+
+.shop .col-md-8 .price span {
+	font-size: 24px;
+	color: #ef4222;
+	font-weight: bold;
+	line-height: 30px;
+	padding-left: 15px;
+	font-family: Arial, Helvetica, "Microsoft YaHei", sans-serif;
+}
+.shop .col-md-8 .color{
+	height: 32px;
+	line-height: 32px;
+	vertical-align: middle;
+}
+.shop .col-md-8 .color span{
+	display: inline-block;
+	height: 32px;
+    width: 32px;
+    min-width: 32px;
+	border: 1px solid #ddd;
+}
+.shop>.row>.col-md-8>.count>span{
+	border: 1px solid #CCCCCC;
+	padding: 5px 8px;
+	background: #FFFFFF;
+}
+
+.shop>.row>.col-md-8>.count>span a{
+	color: #333333;
+	text-decoration: none;
+}
+.shop>.row>.col-md-8>.count input{
+	text-align: center;
+	width: 80px;
+	height: 30px;
+}
+.shop>.row>.col-md-8>.buy{
+	padding-top: 30px;
+}
+.tabTitle ul{
+	position: relative;
+	top: -20px;
+	border-bottom: none;
+}

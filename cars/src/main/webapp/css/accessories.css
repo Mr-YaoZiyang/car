@@ -1,0 +1,72 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.form {
+    padding: 10px;
+    background-color: #fff;
+    margin-top: 17px;
+    display: block;
+    height: 190px;
+}
+.form dl dd {
+    float: left;
+    padding-right: 20px;
+    padding-left: 18px;
+    line-height: 28px;
+}
+.form dl dd a{
+    color: #333333;
+    text-decoration: none;
+}
+.form dl dd a:hover{
+     color: #F75000;
+     text-decoration: none;
+ }
+.form dl dt {
+
+    line-height: 28px;
+    text-indent: 30px;
+    float: left;
+    padding-right: 20px;
+    width: 130px;
+ }
+.jmpj .col-md-4{
+    padding:0;
+    margin-bottom: 20px;
+    transition:box-shadow 1s;
+    -webkit-transition:box-shadow 1s; /* Safari */
+}
+
+.jmpj .col-md-4:hover{
+    -moz-box-shadow:10px 10px 20px #333333;
+    -webkit-box-shadow:10px 10px 20px #333333;
+    box-shadow:10px 10px 20px #333333;
+}
+.jmpj img{
+    width: 386px;
+    height: 343px;
+
+}
+.jmpj p{
+    position: absolute;
+    top: 240px;
+    width: 100%;
+    text-align: center;
+}
+.jmpj .jmpjName{
+
+     color: #0f0e0e;
+     font-size: 16px;
+}
+.jmpj .jmpjDetail{
+
+    color:#9E9E9E;
+    font-size: 14px;
+    padding-top: 25px;
+}
+.jmpj .jmpjPrice{
+    color: #f06261;
+    font-size: 24px;
+    padding-top: 50px;
+}

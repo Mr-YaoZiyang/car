@@ -1,0 +1,145 @@
+.users{
+	height: 30px;
+	padding-top: 10px;
+}
+.users li{
+	list-style: none;
+	float: left;
+}
+.users a{
+	color: #aaa;
+	text-decoration: none;
+}
+.users a:hover{
+	color: #F75000;
+	text-decoration: none;
+}
+.users a span{
+	color:red;
+}
+
+.header{
+	height: 70px;
+	line-height: 70px;
+	border-bottom: 1px solid #ccc;
+}
+*{
+	padding: 0px;
+	margin: 0px;
+}
+#logo{
+	height: 20px;
+}
+.nav li>a{
+	position: relative;
+	top: -10px;
+	list-style: none;
+	float: left;
+	margin-right: 20px;
+	color: black;
+	height: auto;
+	text-decoration: none;
+	height: 30px;
+	font-size: 16px;
+	padding: 0px 15px;
+}
+.nav li>a:hover{
+	color: #F75000;
+	background: no-repeat;
+	text-decoration: none;
+	font-size: 16px;
+}
+#search{
+	height: 20px;
+	position:absolute;
+	left: -30px;
+	top: 15px;
+}
+/*footer  开始-----------------------------------------*/
+.footer1{
+	padding-top: 40px;
+	border-bottom: #eaeaea 1px solid;
+	padding-bottom: 80px;
+	height: 47px;
+	background: #fff;
+}
+.footer1 i{
+	width: 46px;
+	height: 46px;
+	margin-right: 10px;
+	display: block;
+	float: left;
+	line-height: 20px;
+	font-size: 16px;
+	background: url(../img/spirite.png);
+}
+.footer1 .footerIcon1{
+	background-position: 0px -60px;
+}
+.footer1 .footerIcon2{
+	background-position: -46px -60px;
+}
+.footer1 .footerIcon3{
+	background-position: -92px -60px;
+}
+.footer1 .footerIcon4{
+	background-position: -138px -60px;
+}
+.footer1 em{
+	font-style: normal;
+}
+
+.footer2{
+	padding:40px 0px;
+}
+.footer2 dl{
+	float: left;
+	width: 18%;
+	line-height: 33px;
+	color: #777;
+}
+.footer2 dt{
+	font-size: 16px;
+	display: block;
+	color: #777;
+}
+.footer2 dd{
+	font-size: 12px;
+	color: #777;
+}
+.footer2 dd a{
+	color: #777;
+	line-height: 33px;
+	text-decoration: none;
+}
+.footer2 dd a:hover {
+	color: #D94600;
+	text-decoration: none;
+}
+.footer3{
+	background: #333;
+	text-align: left;
+	color: #999;
+	padding: 20px 0;
+	width: 100%;
+}
+.footer3 a{
+	color: #999;
+	text-decoration: none;
+}
+.footer3 li{
+	list-style: none;
+	float: left;
+	margin:0 10px;
+}
+.footer3 p{
+	line-height: 45px;
+	float: left;
+}
+.footer3 .c span{
+	float: left;
+}
+.footer3 .c img{
+	height: 45px;
+	width: auto;
+}

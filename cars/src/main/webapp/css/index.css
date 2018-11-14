@@ -1,0 +1,128 @@
+#carousel-example-generic{
+	height: 530px;
+}
+.mxcp{
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	padding: 40px 0;
+}
+.mxcpimg ul li{
+	margin-right: 8px;
+	list-style: none;
+	float: left;
+}
+.mxcpimg img{
+	height: 257px;
+	width: auto;
+}
+.mxcpimg {
+	padding-bottom: 60px;
+}
+
+.rmtj{
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	padding-top: 40px;
+}
+.more{
+	float: right;
+	font-size: 15px;
+	padding-bottom: 15px;
+	position: relative;
+	left: -20px;
+}
+.more a{
+	color: #000;
+}
+ .rmtjimg .col-md-3 img{
+	transition:box-shadow 2s;
+	-webkit-transition:box-shadow 2s; /* Safari */
+	/*transition:-moz-box-shadow 2s;*/
+	/*-webkit-transition:-moz-box-shadow 2s; /* Safari */
+}
+.rmtjimg .col-md-3 img:hover{
+	-moz-box-shadow: 10px 10px 5px #888888; /*老的 Firefox*/
+	box-shadow: 10px 10px 5px #888888;
+}
+.rmtjimg .col-md-9 a{
+	text-decoration: none;
+}
+.rmtjimg .col-md-9 li{
+	list-style-type: none;
+	margin-left: 20px;
+	width: 260px;
+	height: 385px;
+	margin-bottom: 10px;
+	background: #fff;
+	float: left;
+}
+.rmtjimg .col-md-9 img{
+	height: 240px;
+	width: 120px;
+	position: relative;
+	top: 23px;
+	left: 65px;
+}
+.rmtjimg .col-md-9 p{
+	position: relative;
+	top: 25px;
+	text-align: center;
+}
+.rmtjimg .col-md-9 .phoneName{
+	color: #0f0e0e;
+	font-size: 16px;
+}
+.rmtjimg .col-md-9 .phoneDetail{
+	color: #9e9e9e;
+	font-size: 14px;
+	padding-top: 3px;
+}
+.rmtjimg .col-md-9 .phonePrice{
+	color: #fe6a00;
+	font-size: 24px;
+	padding-top: 12px;
+}
+.rmtjimg .col-md-9 .phonePrice span{
+	font-size: 18px;
+}
+.jmpj .col-md-4{
+	padding:0;
+	margin-bottom: 20px;
+	transition:box-shadow 1s;
+	-webkit-transition:box-shadow 1s; /* Safari */
+}
+
+.jmpj .col-md-4:hover{
+	-moz-box-shadow:10px 10px 20px #333333;
+	-webkit-box-shadow:10px 10px 20px #333333;
+	box-shadow:10px 10px 20px #333333;
+}
+.jmpj img{
+	width: 386px;
+	height: 343px;
+
+}
+.jmpj p{
+	position: absolute;
+	top: 240px;
+	width: 100%;
+	text-align: center;
+}
+.jmpj .jmpjName{
+
+	 color: #0f0e0e;
+	 font-size: 16px;
+}
+.jmpj .jmpjDetail{
+
+	color:#9E9E9E;
+	font-size: 14px;
+	padding-top: 25px;
+}
+.jmpj .jmpjPrice{
+	color: #f06261;
+	font-size: 24px;
+	padding-top: 50px;
+}

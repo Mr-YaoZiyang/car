@@ -1,0 +1,20 @@
+.info .row{
+    height: 100%;
+    // border: 1px solid #000;
+}
+#Repwd,#Info,#Address{
+    display: none;
+
+}
+#Info p ,#Address p,#Repwd p,#Order p{
+    font-weight:bold;
+    font-size:30px;
+}
+.table img{
+    height: 50px;
+    width: auto;
+}
+.table-hover th,.table-hover td{
+    text-align: center;
+    padding: 5px;
+}

@@ -1,0 +1,103 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.form {
+    padding: 10px;
+    background-color: #fff;
+    margin-top: 17px;
+    display: block;
+    height: 190px;
+}
+.form dl dd {
+    float: left;
+    padding-right: 20px;
+    padding-left: 18px;
+    line-height: 28px;
+}
+.form dl dd a{
+    color: #333333;
+    text-decoration: none;
+}
+.form dl dd a:hover{
+     color: #F75000;
+     text-decoration: none;
+ }
+.form dl dt {
+
+    line-height: 28px;
+    text-indent: 30px;
+    float: left;
+    padding-right: 20px;
+    width: 130px;
+ }
+.productList .col-md-3{
+    padding: 0px;
+    background: #ffffff;
+
+    // border: 1px solid #333333;
+}
+.productList .col-md-3 a{
+    text-decoration: none;
+}
+.productList .col-md-3 p{
+    text-align: center;
+}
+.productList img{
+    height: 240px;
+    width: auto;
+    position: relative;
+    top: 23px;
+    left: 85px;
+}
+.phoneName{
+    padding-top:30px;
+    color: #0f0e0e;
+    font-size: 16px;
+    font-weight: blod;
+}
+.phoneDetail{
+    color: #9e9e9e;
+    font-size: 14px;
+    padding-top: 3px;
+}
+.phonePrice{
+    color: #fe6a00;
+    font-size: 24px;
+    padding-top: 12px;
+}
+.phonePrice span{
+    font-size: 18px;
+}
+.ckxq{
+    width: 100%;
+    background-color: rgba(239,66,34,.9);
+    // height: 110px;
+    position: absolute;
+    bottom: 0px;
+    display: none;
+}
+.ckxq a{
+    border-radius: 10px;
+    display: block;
+    width: 112px;
+    height: 37px;
+    overflow: hidden;
+    line-height: 37px;
+    margin: 0 auto;
+    text-align: center;
+    color: rgba(239,66,34,.9);
+    margin-bottom:14px;
+    background: #ffffff;
+}
+.ckxq p{
+    text-align: center;
+    color: #ffffff;
+    padding-top: 30px;
+    height:50px;
+}
+// .productList .col-md-3:hover .ckxq{
+//     display: block;
+// }
+
+
