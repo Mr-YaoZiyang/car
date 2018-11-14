@@ -4,8 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracleoaec.mapper.CarMapper">
 	
-	<select id="querAllCar" resultType="hashMap">
-		select * from car where car_status = 1 
+	<select id="queryAllCar" resultType="hashMap">
+		select * from CARINFO c
+		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID
+		 where c.CAR_STATUS = 1 
 	</select>
 	
 

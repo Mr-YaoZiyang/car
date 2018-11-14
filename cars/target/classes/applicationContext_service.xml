@@ -24,6 +24,6 @@
 	</bean>
 	
 	<bean id="carService" class="com.oracleoaec.service.impl.CarServiceImpl">
-		<property name="cm" ref="CarMapper" />
+		<property name="cm" ref="carMapper" />
 	</bean>
 </beans>
