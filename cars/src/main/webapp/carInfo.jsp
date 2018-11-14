@@ -22,8 +22,8 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/plug/css/modules/layer/default/layer.css" />
    </head>
    <body>
-       <table id="mytb" style="width:1000px;height:300px">
- 
+       <table id="mytb" style="margin:20px auto;text-align: center;">
+
       </table>
 		<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
 	    data-options="iconCls:'icon-save',resizable:true,modal:true" closed="true">
@@ -31,22 +31,20 @@
 		</div>
       <script type="text/javascript">
       	$('#mytb').datagrid({
-           title: '用户表',  //表格名称
+           title: '车辆表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:1000,   //表格宽度
+           width:1050,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
-           url:'allUserInfo.do',   //获取表格数据时请求的地址
+           url:'allCarInfo.do',   //获取表格数据时请求的地址
            columns:[[
-             {field:'USER_NAME',title:'姓名',width:100,hidden:false},
-             {field:'USER_ACCOUNT',title:'账号',width:100},
-             {field:'USER_PWD',title:'密码',width:100},
-             {field:'USER_TEL',title:'电话',width:100},
-             {field:'USER_AGE',title:'年龄',width:100},
-             {field:'USER_ADDRESS',title:'地址',width:100},
-             {field:'SEX',title:'性别',width:100},
-             {field:'ROLE_NAME',title:'角色',width:100},
-             {field:'DEPT_NAME',title:'部门',width:100}
+             {field:'BRAND_MODEL',title:'品牌型号',width:100,hidden:false},
+             {field:'CAR_NUM',title:'车牌号码',width:100},
+             {field:'FACTORY_NUMBER',title:'出厂编号',width:100},
+             {field:'CARTYPE_NAME',title:'车辆类型',width:100},
+             {field:'REG_TIME',title:'注册时间',width:100},
+             {field:'EXAMINATION_TIME',title:'年检时间',width:100},
+             {field:'CAR_CAPACITY',title:'载客定员',width:100},
            ]],
            pagination:true,//如果表格需要支持分页，必须设置该选项为true
            pageSize:5,   //表格中每页显示的行数
@@ -55,9 +53,9 @@
            nowrap: false,   
            striped: true,  //奇偶行是否使用不同的颜色
            method:'POST',   //表格数据获取方式,请求地址是上面定义的url
-           sortName: 'USER_AGE',  //按照ID列的值排序
+           sortName: 'CAR_ID',  //按照ID列的值排序
            sortOrder: 'desc',  //使用倒序排序
-           idField: 'USER_NAME',
+           idField: 'CAR_ID',
            loadMsg:'数据正在努力加载，请稍后...',   //加载数据时显示提示信息
            frozenColumns: [[  //固定在表格左侧的栏
                        {field: 'ck', checkbox: true},
@@ -69,11 +67,11 @@
                          /* getSelectIds('mytb','没有选择'); */
 						layer.open({
 							type: 2,
-							title: '添加用户',
+							title: '添加车辆',
 							maxmin: true,
 							shadeClose: true, //点击遮罩关闭层
 							area : ['800px' , '520px'],
-							content: 'showAddUserInfo.do'
+							content: 'showAddCarInfo.do'
 						});
                      }
                  }, '-', {
@@ -87,11 +85,11 @@
                     		var index = $('#mytb').datagrid('getRowIndex',rows[i]);//获取某行的行号
                     	  	//alert(index);
                     		///获取id，根据id删除数据
-                    	  	var name=rows[i].USER_ID;
+                    	  	var name=rows[i].CAR_ID;
                     	  	//alert(name);
                     	  	
                     	   $.post(
-                    			'deleteUser.do',
+                    			'deleteCar.do',
                     			{userId:name},
                     			function(data){
                     				if(data.flag==true){
@@ -105,7 +103,7 @@
                     	 }
                      }
                  }, '-', {
-                     text: '修改',
+                     text: '修改车辆',
                      iconCls: 'icon-save',
                      handler: function() {
                          /* getSelectIds('mytb','没有选择'); */
@@ -123,7 +121,7 @@
  							maxmin: true,
  							shadeClose: true, //点击遮罩关闭层
  							area : ['800px' , '520px'],
- 							content: 'showUpdateUserInfo.do?userId='+userId
+ 							content: 'showUpdateCarInfo.do?userId='+userId
  						});
                      }
                  }]
