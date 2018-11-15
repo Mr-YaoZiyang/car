@@ -24,7 +24,7 @@ public class RoleMenuController {
 		Map<String, Object> userMap = (Map<String, Object>) request.getSession().getAttribute("userMap");
 		Map<String, Object> fatherMap = rms.queryFathMenuByUserId(Integer.parseInt(userMap.get("USER_ID").toString()));
 		request.setAttribute("fatherMap", fatherMap);
-		
+		System.out.println(fatherMap.toString());
 		List<Map<String, Object>> sonList = rms.querySonMenuByUserId(Integer.parseInt(fatherMap.get("MENU_ID").toString()));
 		request.setAttribute("sonList", sonList);
 		

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.oracleoaec.mapper.DriverMapper">
+	
+	<select id="queryAllDriver" resultType="hashMap">
+		select * from driverInfo d 
+		inner join sex s on s.sex_id = d.sex_id
+		where driver_status = 1
+	</select>
+	
+	<select id="queryDriverById" resultType="hashMap" parameterType="int">
+		select * from driverInfo d 
+		inner join sex s on s.sex_id = d.sex_id
+		where driver_status = 1 and driver_id = #{driverId}
+	</select>
+	
+	<insert id="insertDriver" parameterType="com.oracleoaec.pojo.DriverInfo">
+		insert into Driverinfo(Driver_Id,Sex_Id,Driver_Num,Driver_Name,
+		Driver_Age,Driver_Number,Driver_Tel,Driver_Address,Driver_Type,
+        Driver_Status) values(seq_driverInfo.Nextval,#{sexId},#{driverNum},#{driverName},#{driverAge},
+        #{driverNumber},#{driverTel},#{driverAddress},#{driverType},1)
+	</insert>
+	
+	<update id="updateDriver" parameterType="com.oracleoaec.pojo.DriverInfo">
+		update driverInfo set Sex_Id = #{sexId},Driver_Num=#{driverNum},Driver_Name=#{driverName},
+		Driver_Age=#{driverAge},Driver_Number=#{driverNumber},Driver_Tel=#{driverTel},
+		Driver_Address=#{driverAddress},Driver_Type=#{driverType}
+		 where Driver_Id = #{driverId}
+	</update>
+	
+	<update id="deleteDriver" parameterType="int">
+		update driverInfo set driver_status = 0 where driver_id = #{driverId}
+	</update>
+	
+	
+	
+</mapper>

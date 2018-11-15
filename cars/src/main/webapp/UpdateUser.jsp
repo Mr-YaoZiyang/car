@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<form class="layui-form" action="UpdateUserInfo.do">
+	<form class="layui-form" action="UpdateUserInfo.do" method="post">
 		<input type="hidden" value="${requestScope.userMap.USER_ID }" name="userId">
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名</label>
@@ -123,9 +123,16 @@
 			<label class="layui-form-label">角色</label>
 			<div class="layui-input-block">
 				<select name="roleId" lay-verify="required">
-					<option value=""></option>
+					
 					<c:forEach items="${requestScope.roleList }" var="m">
-						<option value="${m.ROLE_ID }">${m.ROLE_NAME }</option>
+						<c:choose>
+							<c:when test="${requestScope.userMap.ROLE_ID==m.ROLE_ID }">
+								<option value="${m.ROLE_ID }" selected="selected">${m.ROLE_NAME }</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${m.ROLE_ID }">${m.ROLE_NAME }</option>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</select>
 			</div>
@@ -134,9 +141,17 @@
 			<label class="layui-form-label">部门</label>
 			<div class="layui-input-block">
 				<select name="deptId" lay-verify="required">
-					<option value=""></option>
+					
 					<c:forEach items="${requestScope.deptList }" var="m">
-						<option value="${m.DEPT_ID }">${m.DEPT_NAME }</option>
+						<c:choose>
+							<c:when test="${requestScope.userMap.DEPT_ID==m.DEPT_ID }">
+								<option value="${m.DEPT_ID }" selected="selected">${m.DEPT_NAME }</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${m.DEPT_ID }">${m.DEPT_NAME }</option>
+							</c:otherwise>
+						</c:choose>
+						
 					</c:forEach>
 				</select>
 			</div>
