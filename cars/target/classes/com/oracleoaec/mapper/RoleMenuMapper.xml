@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracleoaec.mapper.RoleMenuMapper">
+	<select id="queryFathMenuByUserId" parameterType="int" resultType="hashMap">
+		select * from users u
+		inner join menus_roles rs on rs.role_id = u.role_id 
+		inner join menu m on m.menu_id = rs.menu_id
+		where u.user_id = #{userId} and m.pid is null
+	</select>
+	
+	<select id="querySonMenuByUserId" parameterType="int" resultType="hashMap">
+		select * from menu m 
+		inner join menu me on m.pid = me.menu_id
+	    where me.menu_id = #{menuId}
+	</select>
+
+</mapper>

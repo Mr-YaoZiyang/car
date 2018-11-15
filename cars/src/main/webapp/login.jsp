@@ -30,7 +30,7 @@
 				function(data){
 					//alert(data.flag);
 					if(data.flag==true){
-						window.location.href="AdminIndex.jsp"
+						window.location.href="queryMenu.do"
 					}else{
 						$.alert({
 							title:"Error",

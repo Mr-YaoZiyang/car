@@ -33,7 +33,7 @@
       	$('#mytb').datagrid({
            title: '车辆表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:1050,   //表格宽度
+           width:850,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'allCarInfo.do',   //获取表格数据时请求的地址
@@ -90,7 +90,7 @@
                     	  	
                     	   $.post(
                     			'deleteCar.do',
-                    			{userId:name},
+                    			{carId:name},
                     			function(data){
                     				if(data.flag==true){
                     					$('#mytb').datagrid('deleteRow',index); //通过行号移除该行
@@ -108,20 +108,20 @@
                      handler: function() {
                          /* getSelectIds('mytb','没有选择'); */
                          var rows = $('#mytb').datagrid('getSelections'); //获取你选择的所有行 
-                         var userId = null;
+                         var carId = null;
                          for(var i =0;i<rows.length;i++){
                      		///获取id
-                     	  	var userId=rows[i].USER_ID;
+                     	  	var carId=rows[i].CAR_ID;
                      	  	//alert(name);
 
                      	 }
                     	 layer.open({
  							type: 2,
- 							title: '修改用户',
+ 							title: '修改车辆',
  							maxmin: true,
  							shadeClose: true, //点击遮罩关闭层
  							area : ['800px' , '520px'],
- 							content: 'showUpdateCarInfo.do?userId='+userId
+ 							content: 'showUpdateCarInfo.do?carId='+carId
  						});
                      }
                  }]

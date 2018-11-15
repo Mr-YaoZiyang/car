@@ -33,7 +33,7 @@
       	$('#mytb').datagrid({
            title: '用户表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:1000,   //表格宽度
+           width:1050,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'allUserInfo.do',   //获取表格数据时请求的地址

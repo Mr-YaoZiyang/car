@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,15 +46,20 @@
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        
         <li class="layui-nav-item">
-          <a class="" href="javascript:;">个人菜单</a>
+          <a class="" href="javascript:;">${requestScope.fatherMap.MENU_NAME }</a>
           <dl class="layui-nav-child">
-            <dd><a href="userInfo.jsp" target="main">列表一</a></dd>
-            <dd><a href="carInfo.jsp"  target="main">列表二</a></dd>
+          	<c:forEach items="${requestScope.sonList }" var="m" >
+          		<dd><a href="${m.MENU_URL }" target="${m.TARGET }">${m.MENU_NAME }</a></dd>
+          	</c:forEach>
+            
+           <!--  <dd><a href="carInfo.jsp"  target="main">列表二</a></dd>
             <dd><a href="userInfo.jsp" target="main">列表三</a></dd>
-            <dd><a href="userInfo1.jsp" target="main">超链接</a></dd>
+            <dd><a href="userInfo1.jsp" target="main">超链接</a></dd> -->
           </dl>
         </li>
+        
        <!--  <li class="layui-nav-item"><a href="">云市场</a></li>
        <li class="layui-nav-item"><a href="">发布商品</a></li> -->
       </ul>
@@ -68,7 +74,7 @@
 
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © layui.com - 底部固定区域
+    © Oracle  公务用车管理系统
   </div>
 </div>
 <script src="plug/layui.js"></script>

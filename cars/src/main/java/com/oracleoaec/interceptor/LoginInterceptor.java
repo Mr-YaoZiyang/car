@@ -44,7 +44,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = request.getSession();
 		
-		Map <String,Object> userMap =(Map) session.getAttribute("userMap");
+		Map <String,Object> userMap =(Map <String,Object>) session.getAttribute("userMap");
 		
 		if(userMap == null) {
 			String contextPath = request.getContextPath();

@@ -9,6 +9,26 @@
 		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID
 		 where c.CAR_STATUS = 1 
 	</select>
+	<select id="queryCarById" resultType="hashMap" parameterType="int">
+		select * from carInfo where car_id = #{carId}
+	</select>
 	
-
+	<insert id="insertCar" parameterType="com.oracleoaec.pojo.CarInfo">
+		insert into carInfo(Car_Id,Cartype_Id,Car_Num,Car_Capacity,
+		Brand_Model,Reg_Time,Examination_Time,Factory_Number,Car_Status)
+        values(SEQ_CARINFO.NEXTVAL,#{carTypeId},#{carNum},#{carCapacity},
+        #{brandModel},#{regTime},#{examinationTime},#{factoryNumber},1)
+	</insert>
+	
+	<update id="deleteCar" parameterType="int">
+		update carInfo set car_status = 0 where car_id = #{carId}
+	</update>
+	
+	<update id="updateCar" parameterType="com.oracleoaec.pojo.CarInfo">
+		update carInfo set Cartype_Id=#{carTypeId},Car_Num=#{carNum},Car_Capacity=#{carCapacity},
+		Brand_Model=#{brandModel},Reg_Time=#{regTime},Examination_Time=#{examinationTime},
+		Factory_Number=#{factoryNumber}
+		where car_id = #{carId}
+	</update>
+	
 </mapper>

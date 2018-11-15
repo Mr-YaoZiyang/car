@@ -26,4 +26,17 @@
 	<bean id="carService" class="com.oracleoaec.service.impl.CarServiceImpl">
 		<property name="cm" ref="carMapper" />
 	</bean>
+	
+	<bean id="carTypeService" class="com.oracleoaec.service.impl.CarTypeServiceImpl">
+		<property name="ctm" ref="carTypeMapper" />
+	</bean>
+	
+	<bean id="roleMenuService" class="com.oracleoaec.service.impl.RoleMenuServiceImpl">
+		<property name="rmm" ref="roleMenuMapper" />
+	</bean>
+	
+	
+	
+	
+	
 </beans>
