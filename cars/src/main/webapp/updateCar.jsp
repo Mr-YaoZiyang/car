@@ -17,6 +17,19 @@
         var form = layui.form;
     });
     
+    layui.use('laydate', function(){
+  	  var laydate = layui.laydate;
+  	  
+  	  //执行一个laydate实例
+  	  laydate.render({
+  	    elem: '#regTime' //指定元素
+  	  });
+  	  
+  	  laydate.render({
+    	    elem: '#examinationTime' //指定元素
+    	  });
+	});
+    
 </script>
 </head>
 <body>
@@ -66,7 +79,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">注册时间</label>
 			<div class="layui-input-block">
-				<input type="text" name="regTime" required
+				<input type="text" name="regTime" id="regTime" required
 					lay-verify="required" placeholder="请输入注册时间" autocomplete="off"
 					class="layui-input"  value="${requestScope.carMap.REG_TIME }">
 			</div>
@@ -74,7 +87,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">年检时间</label>
 			<div class="layui-input-block">
-				<input type="text" name="examinationTime" required
+				<input type="text" name="examinationTime" id="examinationTime" required
 					lay-verify="required" placeholder="请输入年检时间" autocomplete="off"
 					class="layui-input" value="${requestScope.carMap.EXAMINATION_TIME }">
 			</div>

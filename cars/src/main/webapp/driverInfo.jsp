@@ -45,7 +45,7 @@
              {field:'DRIVER_NUMBER',title:'驾驶员编号',width:100},
              {field:'DRIVER_TEL',title:'联系电话',width:100},
              {field:'DRIVER_ADDRESS',title:'家庭住址',width:100},
-             {field:'DRIVING_TYPE',title:'准驾车型',width:100},
+             {field:'DRIVER_TYPE',title:'准驾车型',width:100},
            ]],
            pagination:true,//如果表格需要支持分页，必须设置该选项为true
            pageSize:5,   //表格中每页显示的行数
@@ -118,7 +118,7 @@
                      	 }
                     	 layer.open({
  							type: 2,
- 							title: '修改车辆',
+ 							title: '修改驾驶员',
  							maxmin: true,
  							shadeClose: true, //点击遮罩关闭层
  							area : ['800px' , '520px'],

@@ -75,9 +75,11 @@ public class UserController {
 	public List<Map<String,Object>> AllUserInfo(HttpServletRequest request) {
 		
 		List<Map<String,Object>> queryAllUsers = us.queryAllUsers();
-		/*for (Map<String, Object> map : queryAllUsers) {
-			System.out.println(map.toString());
-		}*/
+		
+		int currentPage=Integer.parseInt(request.getParameter("page"));
+		int pageSize=Integer.parseInt(request.getParameter("rows"));
+		
+		
 		return queryAllUsers;
 		/*Integer pageNo=Integer.parseInt(request.getParameter("page"));
 		Integer pageSize = Integer.parseInt(request.getParameter("rows"));
@@ -114,11 +116,7 @@ public class UserController {
 	@RequestMapping("AddUserInfo.do")
 	public String AddUserInfo(User user,HttpServletRequest request) {
 		int i = us.insertUser(user);
-		if(i>0) {
-			return "forward:allUserInfo.do";
-		}else {
-			return "redirect:showAddUserInfo.do";
-		}
+		return "AddUser";
 	}
 	
 	@RequestMapping("deleteUser.do")
@@ -159,11 +157,7 @@ public class UserController {
 	public String UpdateUserInfo(User user,HttpServletRequest request) {
 		System.out.println(user.toString());
 		int i = us.updateUser(user);
-		if(i>0) {
-			return "forward:allUserInfo.do";
-		}else {
-			return "redirect:showUpdateUserInfo.do";
-		}
+		return "AddUser";
 	}
 		
 	

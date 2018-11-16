@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracleoaec.mapper.ViolationMapper">
+
+	<select id="queryAllViolation" resultType="hashMap">
+		select * from violationInfo v 
+		inner join carInfo c on v.car_id = c.car_id 
+		inner join driverInfo d on d.driver_id = v.driver_id
+		where violation_status = 1
+	</select>
+
+	<select id="queryViolationById" parameterType="int" resultType="hashMap">
+		select * from violationInfo v 
+		inner join carInfo c on v.car_id = c.car_id 
+		inner join driverInfo d on d.driver_id = v.driver_id
+		where violation_id = #{violationId}
+	</select>
+	
+	<insert id="insertViolation" parameterType="com.oracleoaec.pojo.Violation">
+		insert into violationinfo(violation_id,driver_id,car_id,violation_time,
+		violation_site,violation_info,results,violation_cost,violation_status) 
+		values(seq_violation.nextval,#{driverId},#{carId},#{violationTime},#{violationSite},
+		#{violationInfo},#{results},#{violationCost},1)
+	</insert>
+	
+	<update id="updateViolation"  parameterType="com.oracleoaec.pojo.Violation">
+		update violationInfo set driver_id =#{driverId},car_id=#{carId},violation_time=#{violationTime},
+		violation_site=#{violationSite},violation_info=#{violationInfo},
+		results=#{results},violation_cost=#{violationCost}
+		where violation_id = #{violationId}
+	</update>
+	
+	<update id="deleteViolation" parameterType="int">
+		update violationInfo set violation_status = 0 where violation_id = #{violationId}
+	</update>
+
+</mapper>

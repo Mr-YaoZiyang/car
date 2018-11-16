@@ -39,6 +39,8 @@
 		<property name="dm" ref="driverMapper" />
 	</bean>
 	
-	
+	<bean id="violationService" class="com.oracleoaec.service.impl.ViolationServiceImpl">
+		<property name="vm" ref="violationMapper" />
+	</bean>
 	
 </beans>

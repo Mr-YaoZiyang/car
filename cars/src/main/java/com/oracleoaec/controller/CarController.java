@@ -33,6 +33,7 @@ public class CarController {
 		List<Map<String, Object>> queryAllCar = cs.queryAllCar();
 		return queryAllCar;
 	}
+	
 	@RequestMapping("showAddCarInfo.do")
 	public String showAddCarInfo(HttpServletRequest request) {
 		List<Map<String,Object>> queryAllCarType = cts.queryAllCarType();

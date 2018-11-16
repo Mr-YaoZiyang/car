@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracleoaec.mapper.PageMapper">
+	
+	<select id="queryPageBean">
+		select * from 
+		(select m.*,rownum rn from 
+		(#{sql}) m 
+		where rownum &lt;= #{pageInfoCount}*#{pageNum}) m1 
+		where rn  &gt; #{pageInfoCount}*(#{pageNum}-1)
+	</select>
+	
+</mapper>

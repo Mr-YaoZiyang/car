@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<form class="layui-form" action="AddUserInfo.do">
+	<form class="layui-form" action="AddUserInfo.do" method="post">
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名</label>
 			<div class="layui-input-block">
