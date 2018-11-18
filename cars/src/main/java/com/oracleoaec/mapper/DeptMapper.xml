@@ -7,7 +7,22 @@
 	<select id="queryAllDept" resultType="map">
 		select * from dept where dept_status = 1
 	</select>
-
-
+	
+	<select id="queryDeptById" resultType="map" parameterType="int">
+		select * from dept where dept_status = 1 and dept_id = #{deptId}
+	</select>
+	
+	<insert id="insertDept" parameterType="com.oracleoaec.pojo.Dept">
+		insert into dept(dept_id,dept_name,dept_status) 
+		values(SEQ_DEPT.NEXTVAL,#{deptName},1)
+	</insert>
+	
+	<update id="updateDept" parameterType="com.oracleoaec.pojo.Dept">
+		update dept set dept_name = #{deptName} where dept_id = #{deptId}
+	</update>
+	
+	<update id="deleteDept" parameterType="int">
+		update dept set dept_status = 0  where dept_id = #{deptId}
+	</update>
 
 </mapper>
