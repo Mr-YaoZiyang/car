@@ -20,7 +20,7 @@ public class CarappformController {
 	@RequestMapping("applyForCarInfo.do")
 	public String applyForCarInfo(CarInfo car,HttpServletRequest request) {
 		
-		request.setAttribute("carId", car.getCarId());
+		
 		
 		
 		
