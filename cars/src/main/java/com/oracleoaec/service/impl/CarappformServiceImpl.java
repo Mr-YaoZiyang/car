@@ -40,5 +40,10 @@ public class CarappformServiceImpl implements CarappformService {
 		int i = cafm.updateCarAppForm(caf);
 		return i;
 	}
+	@Override
+	public List<Map<String, Object>> queryCarappFormByUserId(Integer userId) {
+		List<Map<String,Object>> list = cafm.queryCarappFormByUserId(userId);
+		return list;
+	}
 
 }

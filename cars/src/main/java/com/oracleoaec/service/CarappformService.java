@@ -14,4 +14,6 @@ public interface CarappformService {
 	int insertCarAppForm(CarAppForm caf);
 	
 	int updateCarAppForm(CarAppForm caf);
+	
+	List<Map<String, Object>> queryCarappFormByUserId(Integer userId);
 }

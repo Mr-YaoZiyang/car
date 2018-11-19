@@ -9,6 +9,7 @@ public class CarAppForm {
 	private String appTime;
 	private String appRoverTime;
 	private Integer approverStatus;
+	private Integer schedulingId;
 	public Integer getCarAppId() {
 		return carAppId;
 	}
@@ -51,6 +52,19 @@ public class CarAppForm {
 	public void setApproverStatus(Integer approverStatus) {
 		this.approverStatus = approverStatus;
 	}
+	public Integer getSchedulingId() {
+		return schedulingId;
+	}
+	public void setSchedulingId(Integer schedulingId) {
+		this.schedulingId = schedulingId;
+	}
+	@Override
+	public String toString() {
+		return "CarAppForm [carAppId=" + carAppId + ", appUserId=" + appUserId + ", appDeptId=" + appDeptId
+				+ ", appRoverId=" + appRoverId + ", appTime=" + appTime + ", appRoverTime=" + appRoverTime
+				+ ", approverStatus=" + approverStatus + ", schedulingId=" + schedulingId + "]";
+	}
+	
 	
 	
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracleoaec.mapper.SchedulingMapper">
+
+	<select id="queryAllScheduling" resultType="hashMap">
+		select * from scheduling
+	</select>
+	
+	<select id="querySchedulingById" resultType="hashMap" parameterType="int">
+		select * from scheduling where scheduling_id = #{schedulingId}
+	</select>
+    
+	<insert id="insertScheduling" parameterType="com.oracleoaec.pojo.Scheduling">
+		insert into scheduling(scheduling_id,user_id,car_id,app_leaving_date,
+		planed_return_time,using_reason,destination) values(seq_scheduling.nextval,#{userId},
+		#{carId},#{appLeavingDate},#{planedReturnTime},#{usingReason},#{destination})
+	</insert>
+
+	<update id="updateScheduling" parameterType="com.oracleoaec.pojo.Scheduling">
+		update scheduling set user_id,car_id=#{userId},app_leaving_date=#{appLeavingDate},
+		actual_leaving_date=#{actualLeavingDate},planed_return_time=#{planedReturnTime},storagetime=#{Storagetime},
+		vkt_before_moving=#{vktBeforeMoving},vkt_after_moving=#{vktAfterMoving},roadtoll=#{roadToll},
+		using_reason=#{usingReason},destination=#{destination} where scheduling_id=#{schedulingId}
+	</update>
+	
+</mapper>

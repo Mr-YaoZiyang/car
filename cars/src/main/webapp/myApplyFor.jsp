@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/plug/lay/modules/layer.js"></script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/plug/css/modules/layer/default/layer.css" />
    </head>
-	<body>
+   <body>
        <table id="mytb" style="margin:20px auto;text-align: center;">
 
       </table>
@@ -29,22 +29,22 @@
 	    data-options="iconCls:'icon-save',resizable:true,modal:true" closed="true">
 		    Dialog Content.
 		</div>
-		<script type="text/javascript">		
+      <script type="text/javascript">
       	$('#mytb').datagrid({
-           title: '车辆表',  //表格名称
+           title: '驾驶员表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:925,   //表格宽度
+           width:800,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
-           url:'allCarInfo.do',   //获取表格数据时请求的地址
+           url:'userApplyFor.do',   //获取表格数据时请求的地址
            columns:[[
-             {field:'BRAND_MODEL',title:'品牌型号',width:100,hidden:false},
-             {field:'CAR_NUM',title:'车牌号码',width:100},
-             {field:'FACTORY_NUMBER',title:'出厂编号',width:100},
-             {field:'CARTYPE_NAME',title:'车辆类型',width:100},
-             {field:'REG_TIME',title:'注册时间',width:100},
-             {field:'EXAMINATION_TIME',title:'年检时间',width:100},
-             {field:'CAR_CAPACITY',title:'载客定员',width:100}
+               {field:'APP_TIME',title:'申请时间',width:150,hidden:false},
+               {field:'APP_LEAVING_DATE',title:'出车时间',width:100},
+               {field:'PLANED_RETURN_TIME',title:'预计还车时间',width:100},
+               {field:'USING_REASON',title:'原因',width:100},
+               {field:'DESTINATION',title:'目的地',width:100},
+               {field:'APPROVER_STATUS',title:'状态',width:100},
+             
            ]],
            pagination:true,//如果表格需要支持分页，必须设置该选项为true
            pageSize:5,   //表格中每页显示的行数
@@ -53,36 +53,14 @@
            nowrap: false,   
            striped: true,  //奇偶行是否使用不同的颜色
            method:'POST',   //表格数据获取方式,请求地址是上面定义的url
-           sortName: 'CAR_ID',  //按照ID列的值排序
+           sortName: 'CARAPP_ID',  //按照ID列的值排序
            sortOrder: 'desc',  //使用倒序排序
-           idField: 'CAR_ID',
+           idField: 'CARAPP_ID',
            loadMsg:'数据正在努力加载，请稍后...',   //加载数据时显示提示信息
            frozenColumns: [[  //固定在表格左侧的栏
                        {field: 'ck', checkbox: true},
-                     ]],
-           toolbar: [{
-                     text: '申请用车',
-                     iconCls: 'icon-save',
-                     handler: function() {
-                         /* getSelectIds('mytb','没有选择'); */
-                         var rows = $('#mytb').datagrid('getSelections'); //获取你选择的所有行 
-                         var carId = null;
-                         for(var i =0;i<rows.length;i++){
-                     		///获取id
-                     	  	var carId=rows[i].CAR_ID;
-                     	  	//alert(name);
-
-                     	 }
-                    	 layer.open({
- 							type: 2,
- 							title: '申请用车',
- 							maxmin: true,
- 							shadeClose: true, //点击遮罩关闭层
- 							area : ['800px' , '520px'],
- 							content: 'showApplyForCarInfo.do?carId='+carId
- 						});
-                     }
-                 }]
+                     ]]
+           
          });
 
       	

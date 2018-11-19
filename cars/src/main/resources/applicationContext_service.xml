@@ -44,6 +44,10 @@
 	</bean>
 	
 	<bean id="carappformService" class="com.oracleoaec.service.impl.CarappformServiceImpl">
-		<property name="cafm" ref="CarappformMapper" />
+		<property name="cafm" ref="carappformMapper" />
+	</bean>
+	
+	<bean id="schedulingService" class="com.oracleoaec.service.impl.SchedulingServiceImpl">
+		<property name="sm" ref="schedulingMapper" />
 	</bean>
 </beans>

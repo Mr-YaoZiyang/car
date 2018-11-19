@@ -33,11 +33,11 @@
 </script>
 </head>
 <body>
-	<form class="layui-form" action="applyForCarInfo.do.do" method="post">
-		<input type="hidden" name="carId" value="${requestScope.carMap.CAR_ID }">
-		
+	<form class="layui-form" action="schedulingInfo.do" method="post">
+		<input type="hidden" name="carId" value="${requestScope.carId }">
+		<input type="hidden" name="userId" value="${sessionScope.userMap.USER_ID }">
 		<div class="layui-form-item">
-			<label class="layui-form-label">申请时间</label>
+			<label class="layui-form-label">出行时间</label>
 			<div class="layui-input-block">
 				<input type="text" name="appLeavingDate" id="appLeavingDate" required
 					lay-verify="required" autocomplete="off"

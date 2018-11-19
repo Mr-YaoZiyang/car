@@ -13,9 +13,9 @@
 	</select>
 	
 	<insert id="insertCarAppForm" parameterType="com.oracleoaec.pojo.CarAppForm">
-		insert into Carappform(Carapp_Id,Appuser_Id,App_Time,Approver_Time,Approver_Status,
-        Appdept_Id,Approver_Id)
-		values(SEQ_CARAPPFORM.NEXTVAL,#{appUserId},#{appTime},#{appRoverTime},1,#{appDeptId},#{appRoverId})
+		insert into Carappform(Carapp_Id,Appuser_Id,App_Time,Approver_Status,
+        Appdept_Id,SCHEDULING_ID) values(SEQ_CARAPPFORM.NEXTVAL,#{appUserId},#{appTime},
+        1,#{appDeptId},#{schedulingId})
 	</insert>
 	
 	<update id="updateCarAppForm" parameterType="com.oracleoaec.pojo.CarAppForm">
@@ -23,8 +23,13 @@
 		Approver_Status=#{approverStatus},Appdept_Id=#{appDeptId},Approver_Id=#{appRoverId}
 	</update>
 	
+	<select id="queryCarappFormByUserId" parameterType="int" resultType="hashMap">
+		select * from carAppform  c 
+		join scheduling s on c.scheduling_id = s.scheduling_id 
+		where c.appuser_id = #{userId}
+	</select>	
 	
-
+	
 
 
 

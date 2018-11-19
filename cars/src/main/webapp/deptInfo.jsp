@@ -31,7 +31,7 @@
 		</div>
       <script type="text/javascript">
       	$('#mytb').datagrid({
-           title: '驾驶员表',  //表格名称
+           title: '部门表',  //表格名称
            iconCls: 'icon-edit',  //图标
            width:500,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
