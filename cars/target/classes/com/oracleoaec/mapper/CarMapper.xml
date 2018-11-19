@@ -7,7 +7,7 @@
 	<select id="queryAllCar" resultType="hashMap">
 		select * from CARINFO c
 		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID
-		 where c.CAR_STATUS = 1 
+		 where c.CAR_STATUS > 0 
 	</select>
 	<select id="queryCarById" resultType="hashMap" parameterType="int">
 		select * from carInfo where car_id = #{carId}

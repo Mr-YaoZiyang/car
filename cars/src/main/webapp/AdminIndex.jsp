@@ -69,7 +69,7 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
    <!--  <div style="padding: 15px;">内容主体区域</div> -->
-   <iframe src="userInfo.jsp" frameborder="no" name="main" style="width:100%;height:100%"></iframe>
+   <iframe src="carInfo.jsp" frameborder="no" name="main" style="width:100%;height:100%"></iframe>
   </div>
 
   <div class="layui-footer">

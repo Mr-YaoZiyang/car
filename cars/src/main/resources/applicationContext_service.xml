@@ -43,4 +43,7 @@
 		<property name="vm" ref="violationMapper" />
 	</bean>
 	
+	<bean id="carappformService" class="com.oracleoaec.service.impl.CarappformServiceImpl">
+		<property name="cafm" ref="CarappformMapper" />
+	</bean>
 </beans>

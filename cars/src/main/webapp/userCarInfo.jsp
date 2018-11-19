@@ -83,49 +83,7 @@
                        {field: 'ck', checkbox: true},
                      ]],
            toolbar: [{
-                     text: '添加',
-                     iconCls: 'icon-add',
-                     handler: function() {
-                         /* getSelectIds('mytb','没有选择'); */
-						layer.open({
-							type: 2,
-							title: '添加车辆',
-							maxmin: true,
-							shadeClose: true, //点击遮罩关闭层
-							area : ['800px' , '520px'],
-							content: 'showAddCarInfo.do'
-						});
-                     }
-                 }, '-', {
-                     text: '删除',
-                     iconCls: 'icon-cut',
-                     handler: function() {
-                    	 var rows = $('#mytb').datagrid('getSelections'); //获取你选择的所有行 
-                    	 //循环所选的行
-                    	 for(var i =0;i<rows.length;i++){
-                    		//获取行号，根据行号静态的移除行
-                    		var index = $('#mytb').datagrid('getRowIndex',rows[i]);//获取某行的行号
-                    	  	//alert(index);
-                    		///获取id，根据id删除数据
-                    	  	var name=rows[i].CAR_ID;
-                    	  	//alert(name);
-                    	  	
-                    	   $.post(
-                    			'deleteCar.do',
-                    			{carId:name},
-                    			function(data){
-                    				if(data.flag==true){
-                    					$('#mytb').datagrid('deleteRow',index); //通过行号移除该行
-                    				}else{
-                    					alert("删除失败！");
-                    				}
-                    			},
-                    			'json'
-                    	  );  
-                    	 }
-                     }
-                 }, '-', {
-                     text: '修改车辆',
+                     text: '申请用车',
                      iconCls: 'icon-save',
                      handler: function() {
                          /* getSelectIds('mytb','没有选择'); */
@@ -139,11 +97,11 @@
                      	 }
                     	 layer.open({
  							type: 2,
- 							title: '修改车辆',
+ 							title: '申请用车',
  							maxmin: true,
  							shadeClose: true, //点击遮罩关闭层
  							area : ['800px' , '520px'],
- 							content: 'showUpdateCarInfo.do?carId='+carId
+ 							content: 'showApplyForCarInfo.do?carId='+carId
  						});
                      }
                  }]

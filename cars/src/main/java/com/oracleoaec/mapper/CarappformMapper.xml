@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracleoaec.mapper.CarappformMapper">
+	
+	<select id="queryCarappForm"  resultType="hashMap">
+		select * from carAppform 
+	</select>
+	
+	<select id="queryCarappFormById" parameterType="int" resultType="hashMap">
+		select * from carAppform  where carApp_id = #{carAppId}
+	</select>
+	
+	<insert id="insertCarAppForm" parameterType="com.oracleoaec.pojo.CarAppForm">
+		insert into Carappform(Carapp_Id,Appuser_Id,App_Time,Approver_Time,Approver_Status,
+        Appdept_Id,Approver_Id)
+		values(SEQ_CARAPPFORM.NEXTVAL,#{appUserId},#{appTime},#{appRoverTime},1,#{appDeptId},#{appRoverId})
+	</insert>
+	
+	<update id="updateCarAppForm" parameterType="com.oracleoaec.pojo.CarAppForm">
+		update carAppform set Appuser_Id = #{appUserId},App_Time=#{appTime},Approver_Time=#{appRoverTime},
+		Approver_Status=#{approverStatus},Appdept_Id=#{appDeptId},Approver_Id=#{appRoverId}
+	</update>
+	
+	
+
+
+
+
+
+
+
+
+
+</mapper>

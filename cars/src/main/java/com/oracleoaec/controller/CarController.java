@@ -85,6 +85,15 @@ public class CarController {
 		return "AddCar";
 	}
 	
+	@RequestMapping("showApplyForCarInfo.do")
+	public String showApplyForCarInfo(CarInfo car,HttpServletRequest request) {
+		
+		request.setAttribute("carId", car.getCarId());
+		
+		
+		
+		return "applyForCarInfo";
+	}
 	
 	
 	
