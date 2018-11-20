@@ -43,6 +43,21 @@ public class CarServiceImpl implements CarService {
 		int i = cm.updateCar(car);
 		return i;
 	}
+	@Override
+	public int takeUpcar(CarInfo car) {
+		int i = cm.takeUpcar(car);
+		return i;
+	}
+	@Override
+	public int freeCar(CarInfo car) {
+		int i = cm.freeCar(car);
+		return i;
+	}
+	@Override
+	public List<Map<String, Object>> queryAllUserCar() {
+		List<Map<String, Object>> carList = cm.queryAllUserCar();
+		return carList;
+	}
 	
 	
 	

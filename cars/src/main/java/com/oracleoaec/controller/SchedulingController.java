@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarAppForm;
+import com.oracleoaec.pojo.CarInfo;
 import com.oracleoaec.pojo.Scheduling;
+import com.oracleoaec.service.CarService;
 import com.oracleoaec.service.CarappformService;
 import com.oracleoaec.service.SchedulingService;
 
@@ -30,12 +32,19 @@ public class SchedulingController {
 	@Qualifier("carappformService")
 	private CarappformService cs;
 	
+	@Autowired
+	@Qualifier("carService")
+	private CarService cser;
+	
 	@RequestMapping("schedulingInfo.do")
 	public String schedulingInfo(Scheduling scheduling,HttpServletRequest request) {
 		int i = ss.insertScheduling(scheduling);
 		Integer schedulingId = scheduling.getSchedulingId();
 		request.setAttribute("schedulingId", schedulingId);
 		if(i>0) {
+			CarInfo car = new CarInfo();
+			car.setCarId(scheduling.getCarId());
+			cser.takeUpcar(car);
 			return "forward:applyForCarInfo.do";
 		}else {
 			return "applyForCarInfo";
@@ -109,10 +118,18 @@ public class SchedulingController {
 		scheduling.setStoragetime(sdf.format(date));
 		System.out.println(scheduling.toString());
 		int i = ss.putStorage(scheduling);
+		//根据scheduling的id获取map
+		Map<String, Object> schedulingMap = ss.querySchedulingById(scheduling.getSchedulingId());
+		System.out.println(schedulingMap.toString());
+		//在根据scheduling的map获取carId
+		CarInfo car = new CarInfo();
+		car.setCarId(new Integer(schedulingMap.get("CAR_ID").toString()));
+		//获得carid将车的状态做改变
+		int freeCar = cser.freeCar(car);
+		//将申请表的状态改为   已入库
 		CarAppForm caf = new CarAppForm();
 		caf.setSchedulingId(scheduling.getSchedulingId());
-		
-		
+
 		int putStorage = cs.putStorage(caf);
 		
 		

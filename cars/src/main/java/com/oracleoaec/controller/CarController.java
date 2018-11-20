@@ -34,6 +34,14 @@ public class CarController {
 		return queryAllCar;
 	}
 	
+	@RequestMapping("allUserCarInfo.do")
+	@ResponseBody
+	public List<Map<String, Object>> allUserCarInfo(){
+		
+		List<Map<String, Object>> queryAllCar = cs.queryAllUserCar();
+		return queryAllCar;
+	}
+	
 	@RequestMapping("showAddCarInfo.do")
 	public String showAddCarInfo(HttpServletRequest request) {
 		List<Map<String,Object>> queryAllCarType = cts.queryAllCarType();

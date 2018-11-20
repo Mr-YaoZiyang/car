@@ -39,6 +39,7 @@
            url:'allPendingInfo.do',   //获取表格数据时请求的地址
            columns:[[
         	   {field:'APP_TIME',title:'申请时间',width:150,hidden:false},
+               {field:'CAR_NUM',title:'申请车辆',width:100},
                {field:'APPLYUSER',title:'申请人',width:100},
                {field:'APP_LEAVING_DATE',title:'出车时间',width:100},
                {field:'PLANED_RETURN_TIME',title:'预计还车时间',width:100},
@@ -73,10 +74,14 @@
                     		///获取id，根据id删除数据
                     	  	var carappid=rows[i].CARAPP_ID;
                     	  	//alert(name);
-                    	  	
+                    	  	var carid=rows[i].CAR_ID;
                     	   $.post(
                     			'AgreeApproval.do',
-                    			{carAppId:carappid,approverStatus:2},
+                    			{
+                    				carAppId:carappid,
+                    				approverStatus:2,
+                    				
+                    			},
                     			function(data){
                     				if(data.flag==true){
                     					$('#mytb').datagrid('deleteRow',index); //通过行号移除该行
@@ -101,10 +106,14 @@
                     		///获取id，根据id删除数据
                     	  	var carappid=rows[i].CARAPP_ID;
                     	  	//alert(name);
-                    	  	
+                    	  	var carid=rows[i].CAR_ID;
                     	   $.post(
                     			'disapprove.do',
-                    			{carAppId:carappid,approverStatus:3},
+                    			{
+                    				carAppId:carappid,
+                    				approverStatus:3,
+                    				carId:carid
+                    			},
                     			function(data){
                     				if(data.flag==true){
                     					$('#mytb').datagrid('deleteRow',index); //通过行号移除该行

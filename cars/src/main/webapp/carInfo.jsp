@@ -38,13 +38,9 @@
 			var carStatus=val;
         	  	//alert(name);
 			if(carStatus == 1){
-				return '<a href="#" style="background:#00ffff;" onclick="">待申请</a>';
+				return '<span>空闲</span>';
 			}else if(carStatus == 2){
-				return '<a href="#" style="background:yellow;" onclick="">待审批</a>';
-			}else if(carStatus == 3){
-				return '<a href="#" style="background:#f0f;" onclick="">待出车</a>';
-			}else if(carStatus == 4){
-				return '<a href="#" style="background:#f00;" onclick="">待还车</a>';
+				return '<span>占用</span>';
 			}
 
         	// } 

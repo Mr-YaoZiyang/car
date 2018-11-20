@@ -7,8 +7,9 @@
 	<select id="queryAllCar" resultType="hashMap">
 		select * from CARINFO c
 		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID
-		 where c.CAR_STATUS > 0 
+		 where c.CAR_STATUS > 0
 	</select>
+	
 	<select id="queryCarById" resultType="hashMap" parameterType="int">
 		select * from carInfo where car_id = #{carId}
 	</select>
@@ -31,4 +32,17 @@
 		where car_id = #{carId}
 	</update>
 	
+	<update id="takeUpcar" parameterType="com.oracleoaec.pojo.CarInfo">
+		update carInfo set car_status = 2 where car_id = #{carId}
+	</update>
+	
+	<update id="freeCar" parameterType="com.oracleoaec.pojo.CarInfo">
+		update carInfo set car_status = 1 where car_id = #{carId}
+	</update>
+	
+	<select id="queryAllUserCar" resultType="hashMap">
+		select * from CARINFO c
+		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID
+		 where c.CAR_STATUS = 1
+	</select>
 </mapper>

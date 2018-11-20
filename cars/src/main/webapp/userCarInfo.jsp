@@ -36,7 +36,7 @@
            width:925,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
-           url:'allCarInfo.do',   //获取表格数据时请求的地址
+           url:'allUserCarInfo.do',   //获取表格数据时请求的地址
            columns:[[
              {field:'BRAND_MODEL',title:'品牌型号',width:100,hidden:false},
              {field:'CAR_NUM',title:'车牌号码',width:100},

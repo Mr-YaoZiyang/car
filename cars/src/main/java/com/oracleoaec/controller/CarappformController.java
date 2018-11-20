@@ -18,14 +18,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarAppForm;
 import com.oracleoaec.pojo.CarInfo;
+import com.oracleoaec.service.CarService;
 import com.oracleoaec.service.CarappformService;
 
 @Controller
 public class CarappformController {
-	
+
 	@Autowired
 	@Qualifier("carappformService")
 	private CarappformService cs;
+	
+	@Autowired
+	@Qualifier("carService")
+	private CarService cser;
 	
 	@RequestMapping("applyForCarInfo.do")
 	public String applyForCarInfo(HttpServletRequest request) {
@@ -42,6 +47,7 @@ public class CarappformController {
 		caf.setSchedulingId(schedulingId);
 		System.out.println(caf.toString());
 		int i = cs.insertCarAppForm(caf);
+
 		return "applyForCarInfo";
 	}
 	
@@ -95,7 +101,7 @@ public class CarappformController {
 	
 	@RequestMapping("disapprove.do")
 	@ResponseBody
-	public Map<String, Object> disapprove(CarAppForm caf,HttpServletRequest request) {
+	public Map<String, Object> disapprove(CarAppForm caf,CarInfo car,HttpServletRequest request) {
 		
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -108,6 +114,7 @@ public class CarappformController {
 		int i = cs.updateCarAppForm(caf);
 		Map<String, Object> map = new HashMap<>();
 		if(i>0) {
+			int freeCar = cser.freeCar(car);
 			map.put("flag", true);
 		}else {
 			map.put("flag", false);
@@ -132,6 +139,15 @@ public class CarappformController {
 		pendingMap.put("approverStatus", 3);
 		List<Map<String, Object>> disapproveList = cs.querycarPending(pendingMap);
 		afterPendingList.addAll(disapproveList);
+		pendingMap.put("approverStatus", 4);
+		List<Map<String, Object>> sendCarList = cs.querycarPending(pendingMap);
+		afterPendingList.addAll(sendCarList);
+		pendingMap.put("approverStatus", 5);
+		List<Map<String, Object>> returnCarList = cs.querycarPending(pendingMap);
+		afterPendingList.addAll(returnCarList);
+		pendingMap.put("approverStatus", 6);
+		List<Map<String, Object>> putStorageList = cs.querycarPending(pendingMap);
+		afterPendingList.addAll(putStorageList);
 		return afterPendingList;
 	}
 	

@@ -35,6 +35,12 @@
 	    			return '<span>同意</span>';
 	    		}else if(value==3){
 	    			return '<span>不同意</span>';
+	    		}else if(value==4){
+	    			return '<span>已出车</span>';
+	    		}else if(value==5){
+	    			return '<span>已还车</span>';
+	    		}else if(value==6){
+	    			return '<span>已入库</span>';
 	    		}
 	        
 	      }
@@ -46,6 +52,7 @@
            border:true,  //表格是否显示边框
            url:'allAfterPendingInfo.do',   //获取表格数据时请求的地址
            columns:[[
+        	   {field:'CAR_NUM',title:'申请车辆',width:100},
         	   {field:'APPLYUSER',title:'申请人',width:100},
         	   {field:'APP_TIME',title:'申请时间',width:150,hidden:false},
         	   {field:'APPROVERUSER',title:'审批人',width:100},
@@ -54,7 +61,6 @@
                {field:'PLANED_RETURN_TIME',title:'预计还车时间',width:100},
                {field:'USING_REASON',title:'原因',width:100},
                {field:'DESTINATION',title:'目的地',width:100},
-               {field:'DESTINATION',title:'审批人',width:100},
                {field:'APPROVER_STATUS',title:'状态',width:100,formatter:fnStatus}
            ]],
            pagination:true,//如果表格需要支持分页，必须设置该选项为true

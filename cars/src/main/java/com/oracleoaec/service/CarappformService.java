@@ -28,4 +28,5 @@ public interface CarappformService {
 	int returnCar(CarAppForm caf);
 	
 	int putStorage(CarAppForm caf);
+	
 }
