@@ -45,5 +45,26 @@ public class CarappformServiceImpl implements CarappformService {
 		List<Map<String,Object>> list = cafm.queryCarappFormByUserId(userId);
 		return list;
 	}
+	@Override
+	public List<Map<String, Object>> querycarPending(Map<String, Object> pendingMap) {
+		List<Map<String,Object>> list = cafm.querycarPending(pendingMap);
+		return list;
+	}
+	
+	@Override
+	public int sendedCar(CarAppForm caf) {
+		int i = cafm.sendedCar(caf);
+		return i;
+	}
+	@Override
+	public int returnCar(CarAppForm caf) {
+		int i = cafm.returnCar(caf);
+		return i;
+	}
+	@Override
+	public int putStorage(CarAppForm caf) {
+		int i = cafm.putStorage(caf);
+		return i;
+	}
 
 }

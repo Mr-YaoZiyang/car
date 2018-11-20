@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -159,6 +160,16 @@ public class UserController {
 		int i = us.updateUser(user);
 		return "AddUser";
 	}
+	@RequestMapping("deptEmployeesInfo.do")
+	@ResponseBody
+	public List<Map<String,Object>> deptEmployeesInfo(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Map userMap = (Map) session.getAttribute("userMap");
+		Integer deptId = new Integer(userMap.get("DEPT_ID").toString());
+		List<Map<String,Object>> list = us.queryDeptEmployees(deptId);
 		
+		return list;
+
+	}
 	
 }

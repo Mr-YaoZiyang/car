@@ -47,4 +47,6 @@ public interface UserMapper {
 	 * @return
 	 */
 	int updateUser(User user);
+	
+	List<Map<String, Object>> queryDeptEmployees(Integer deptId);
 }

@@ -5,7 +5,9 @@
 <mapper namespace="com.oracleoaec.mapper.SchedulingMapper">
 
 	<select id="queryAllScheduling" resultType="hashMap">
-		select * from scheduling
+		select * from scheduling s
+	    join users u on u.user_id = s.user_id
+	    join carInfo c on c.car_id = s.car_id
 	</select>
 	
 	<select id="querySchedulingById" resultType="hashMap" parameterType="int">
@@ -13,16 +15,37 @@
 	</select>
     
 	<insert id="insertScheduling" parameterType="com.oracleoaec.pojo.Scheduling">
+		<selectKey keyProperty="schedulingId" order="BEFORE" resultType="java.lang.Integer">
+            select seq_scheduling.NEXTVAL as schedulingId from DUAL
+        </selectKey>
 		insert into scheduling(scheduling_id,user_id,car_id,app_leaving_date,
-		planed_return_time,using_reason,destination) values(seq_scheduling.nextval,#{userId},
+		planed_return_time,using_reason,destination) values(#{schedulingId},#{userId},
 		#{carId},#{appLeavingDate},#{planedReturnTime},#{usingReason},#{destination})
 	</insert>
 
-	<update id="updateScheduling" parameterType="com.oracleoaec.pojo.Scheduling">
-		update scheduling set user_id,car_id=#{userId},app_leaving_date=#{appLeavingDate},
-		actual_leaving_date=#{actualLeavingDate},planed_return_time=#{planedReturnTime},storagetime=#{Storagetime},
-		vkt_before_moving=#{vktBeforeMoving},vkt_after_moving=#{vktAfterMoving},roadtoll=#{roadToll},
-		using_reason=#{usingReason},destination=#{destination} where scheduling_id=#{schedulingId}
+	<update id="sendCar" parameterType="com.oracleoaec.pojo.Scheduling">
+		update scheduling set actual_leaving_date=#{actualLeavingDate},
+		vkt_before_moving=#{vktBeforeMoving}  where scheduling_id=#{schedulingId}
 	</update>
 	
+	<select id="queryAllSendCar" resultType="hashMap">
+		select * from scheduling s
+      join users u on u.user_id = s.user_id
+      join carInfo c on c.car_id = s.car_id 
+      join carappform caf on caf.scheduling_id = s.scheduling_id
+	    where caf.approver_status = 2
+	</select>
+	
+	<select id="queryPutStorage" resultType="hashMap">
+		select * from scheduling s
+      join users u on u.user_id = s.user_id
+      join carInfo c on c.car_id = s.car_id 
+      join carappform caf on caf.scheduling_id = s.scheduling_id
+	    where caf.approver_status = 5
+	</select>
+	
+	<update id="putStorage" parameterType="com.oracleoaec.pojo.Scheduling">
+		update scheduling set storagetime=#{Storagetime},vkt_after_moving=#{vktAfterMoving},
+		roadtoll=#{roadToll}  where scheduling_id=#{schedulingId}
+	</update>
 </mapper>

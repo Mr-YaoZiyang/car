@@ -20,4 +20,6 @@ public interface DeptService {
 	int updateDept(Dept dept);
 	
 	int deleteDept(Integer deptId);
+	
+	
 }

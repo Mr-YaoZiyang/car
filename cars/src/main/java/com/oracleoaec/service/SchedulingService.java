@@ -13,5 +13,11 @@ public interface SchedulingService {
 	
 	int insertScheduling(Scheduling scheduling);
 	
-	int updateScheduling(Scheduling scheduling);
+	int sendCar(Scheduling scheduling);
+	
+	List<Map<String, Object>> queryAllSendCar();
+	
+	List<Map<String, Object>> queryPutStorage();
+	
+	int putStorage(Scheduling scheduling);
 }

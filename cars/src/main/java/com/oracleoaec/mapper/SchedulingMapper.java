@@ -13,5 +13,17 @@ public interface SchedulingMapper {
 	
 	int insertScheduling(Scheduling scheduling);
 	
-	int updateScheduling(Scheduling scheduling);
+	/**
+	 * ≈…≥µ
+	 * @param scheduling
+	 * @return
+	 */
+	int sendCar(Scheduling scheduling);
+	
+	List<Map<String, Object>> queryAllSendCar();
+	
+	List<Map<String, Object>> queryPutStorage();
+	
+	int putStorage(Scheduling scheduling);
+	
 }

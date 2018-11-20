@@ -1,13 +1,22 @@
 package com.oracleoaec.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oracleoaec.pojo.CarAppForm;
 import com.oracleoaec.pojo.Scheduling;
+import com.oracleoaec.service.CarappformService;
 import com.oracleoaec.service.SchedulingService;
 
 @Controller
@@ -17,14 +26,14 @@ public class SchedulingController {
 	@Qualifier("schedulingService")
 	private SchedulingService ss;
 	
+	@Autowired
+	@Qualifier("carappformService")
+	private CarappformService cs;
+	
 	@RequestMapping("schedulingInfo.do")
 	public String schedulingInfo(Scheduling scheduling,HttpServletRequest request) {
-		
-		System.out.println(scheduling.toString());
-		
 		int i = ss.insertScheduling(scheduling);
 		Integer schedulingId = scheduling.getSchedulingId();
-		System.out.println(schedulingId);
 		request.setAttribute("schedulingId", schedulingId);
 		if(i>0) {
 			return "forward:applyForCarInfo.do";
@@ -33,5 +42,81 @@ public class SchedulingController {
 		}
 		
 	}
+	@RequestMapping("allSchedulingInfo.do")
+	@ResponseBody
+	public List<Map<String, Object>> allSchedulingInfo(Scheduling scheduling,HttpServletRequest request) {
+		List<Map<String, Object>> queryAllScheduling = ss.queryAllScheduling();
+		
+		return queryAllScheduling;
+	}
 	
+	@RequestMapping("readySendCar.do")
+	@ResponseBody
+	public List<Map<String, Object>> readySendCar(Scheduling scheduling,HttpServletRequest request) {
+		
+		List<Map<String, Object>> queryAllSendCar = ss.queryAllSendCar();
+		
+		return queryAllSendCar;
+	}
+	
+	@RequestMapping("showSchedulingInfo.do")
+	public String showSchedulingInfo(Scheduling scheduling,HttpServletRequest request) {
+		
+		request.setAttribute("schedulingId", scheduling.getSchedulingId());
+		
+		
+		return "sendCarInfo";
+	}
+	@RequestMapping("sendCar.do")
+	public String sendCar(Scheduling scheduling,HttpServletRequest request) {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		scheduling.setActualLeavingDate(sdf.format(date));
+		System.out.println(scheduling.toString());
+		int i = ss.sendCar(scheduling);
+		CarAppForm caf = new CarAppForm();
+		caf.setSchedulingId(scheduling.getSchedulingId());
+		
+		
+		int sendedCar = cs.sendedCar(caf);
+		
+		
+		return "sendCarInfo";
+	}
+	
+	@RequestMapping("readyPutStorage.do")
+	@ResponseBody
+	public List<Map<String, Object>> readyPutStorage(Scheduling scheduling,HttpServletRequest request) {
+		
+		List<Map<String,Object>> list = ss.queryPutStorage();
+		
+		return list;
+		
+	}
+	@RequestMapping("showPutStorage.do")
+	public String showPutStorage(Scheduling scheduling,HttpServletRequest request) {
+		
+		request.setAttribute("schedulingId", scheduling.getSchedulingId());
+		
+		
+		return "putStorageInfo";
+	}
+	
+	@RequestMapping("putStorage.do")
+	public String putStorage(Scheduling scheduling,HttpServletRequest request) {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		scheduling.setStoragetime(sdf.format(date));
+		System.out.println(scheduling.toString());
+		int i = ss.putStorage(scheduling);
+		CarAppForm caf = new CarAppForm();
+		caf.setSchedulingId(scheduling.getSchedulingId());
+		
+		
+		int putStorage = cs.putStorage(caf);
+		
+		
+		return "putStorageInfo";
+	}
+		
 }

@@ -19,8 +19,8 @@
 	</insert>
 	
 	<update id="updateCarAppForm" parameterType="com.oracleoaec.pojo.CarAppForm">
-		update carAppform set Appuser_Id = #{appUserId},App_Time=#{appTime},Approver_Time=#{appRoverTime},
-		Approver_Status=#{approverStatus},Appdept_Id=#{appDeptId},Approver_Id=#{appRoverId}
+		update carAppform set Approver_Time=#{appRoverTime},
+		Approver_Status=#{approverStatus},Approver_Id=#{appRoverId} where Carapp_Id = #{carAppId}
 	</update>
 	
 	<select id="queryCarappFormByUserId" parameterType="int" resultType="hashMap">
@@ -29,13 +29,27 @@
 		where c.appuser_id = #{userId}
 	</select>	
 	
+	<select id="querycarPending" parameterType="hashMap" resultType="hashMap">
+		select u.user_name applyUser,us.user_name approverUser,c.*,car.*,s.* from carAppform  c 
+	    join scheduling s on c.scheduling_id = s.scheduling_id 
+	    join carinfo car on car.car_id = s.car_id
+	    join users u on c.appuser_id = u.user_id 
+	    left join users us on us.user_id = c.approver_id
+		where c.appDept_id = #{appDeptId} and approver_status = #{approverStatus}
+	</select>
+
+
+	<update id="sendedCar" parameterType="com.oracleoaec.pojo.CarAppForm">
+		update carAppform set approver_status = 4 where scheduling_id = #{schedulingId}
+	</update>
+
+	<update id="returnCar" parameterType="com.oracleoaec.pojo.CarAppForm">
+		update carAppform set approver_status = 5 where carapp_id = #{carAppId}
+	</update>
 	
-
-
-
-
-
-
+	<update id="putStorage" parameterType="com.oracleoaec.pojo.CarAppForm">
+		update carAppform set approver_status = 6 where scheduling_id = #{schedulingId}
+	</update>
 
 
 </mapper>

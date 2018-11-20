@@ -36,8 +36,23 @@ public class SchedulingServiceImpl implements SchedulingService {
 	}
 
 	@Override
-	public int updateScheduling(Scheduling scheduling) {
-		int i = sm.updateScheduling(scheduling);
+	public int sendCar(Scheduling scheduling) {
+		int i = sm.sendCar(scheduling);
+		return i;
+	}
+	@Override
+	public List<Map<String, Object>> queryAllSendCar() {
+		List<Map<String,Object>> list = sm.queryAllSendCar();
+		return list;
+	}
+	@Override
+	public List<Map<String, Object>> queryPutStorage() {
+		List<Map<String,Object>> list = sm.queryPutStorage();
+		return list;
+	}
+	@Override
+	public int putStorage(Scheduling scheduling) {
+		int i = sm.putStorage(scheduling);
 		return i;
 	}
 

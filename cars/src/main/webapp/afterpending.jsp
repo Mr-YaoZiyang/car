@@ -4,7 +4,7 @@
  <html>
   <head>
       <meta charset="utf-8"/>
-       <title></title>
+       <title>武侠小说人物</title>
     <!--导入相关插件-->
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jQuery.min.1.9.1.js"></script>
     <!-- //引入 jQuery EasyUI 核心库，这里采用的是 1.3.6 -->
@@ -30,39 +30,32 @@
 		    Dialog Content.
 		</div>
       <script type="text/javascript">
-      	function fnStatus(value,row,index){
-      		if(value==1){
-      			return '<span>申请中</span>'  
-      		}else if(value==2){
-      			return '<span>同意出车</span>';
-      		}else if(value==3){
-      			return '<span>不同意出车</span>';
-      		}else if(value==4){
-      			return '<span>已出车</span>';
-      		}else if(value==5){
-      			return '<span>已还车</span>';
-      		}else if(value=6){
-      			return '<span>已入库</span>';
-      		}
-          
-        }
-      
-      
+	      function fnStatus(value,row,index){
+	    		if(value==2){
+	    			return '<span>同意</span>';
+	    		}else if(value==3){
+	    			return '<span>不同意</span>';
+	    		}
+	        
+	      }
       	$('#mytb').datagrid({
-           title: '驾驶员表',  //表格名称
+           title: '审批完成车辆',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:800,   //表格宽度
+           width:1250,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
-           url:'userApplyFor.do',   //获取表格数据时请求的地址
+           url:'allAfterPendingInfo.do',   //获取表格数据时请求的地址
            columns:[[
-               {field:'APP_TIME',title:'申请时间',width:150,hidden:false},
+        	   {field:'APPLYUSER',title:'申请人',width:100},
+        	   {field:'APP_TIME',title:'申请时间',width:150,hidden:false},
+        	   {field:'APPROVERUSER',title:'审批人',width:100},
+        	   {field:'APPROVER_TIME',title:'审批时间',width:150},
                {field:'APP_LEAVING_DATE',title:'出车时间',width:100},
                {field:'PLANED_RETURN_TIME',title:'预计还车时间',width:100},
                {field:'USING_REASON',title:'原因',width:100},
                {field:'DESTINATION',title:'目的地',width:100},
+               {field:'DESTINATION',title:'审批人',width:100},
                {field:'APPROVER_STATUS',title:'状态',width:100,formatter:fnStatus}
-             
            ]],
            pagination:true,//如果表格需要支持分页，必须设置该选项为true
            pageSize:5,   //表格中每页显示的行数
@@ -77,41 +70,8 @@
            loadMsg:'数据正在努力加载，请稍后...',   //加载数据时显示提示信息
            frozenColumns: [[  //固定在表格左侧的栏
                        {field: 'ck', checkbox: true},
-                     ]],
-           toolbar: [{
-        	   text: '还车',
-               iconCls: 'icon-add',
-               handler: function() {
-            	   var rows = $('#mytb').datagrid('getSelections'); //获取你选择的所有行 
-              	 //循环所选的行
-              	 for(var i =0;i<rows.length;i++){
-              		//获取行号，根据行号静态的移除行
-              		var index = $('#mytb').datagrid('getRowIndex',rows[i]);//获取某行的行号
-              	  	//alert(index);
-              		///获取id，根据id删除数据
-              	  	var carappid=rows[i].CARAPP_ID;
-              	  	//alert(name);
-              	  	
-              	  	if(rows[i].APPROVER_STATUS==4){
-	              	  	$.post(
-	                  			'returnCar.do',
-	                  			{carAppId:carappid},
-	                  			function(data){
-	                  				if(data.flag==true){
-	                  					alert("还车成功"); //通过行号移除该行
-	                  				}else{
-	                  					alert("还车失败！");
-	                  				}
-	                  			},
-	                  			'json'
-	                  	  ); 
-              	  	}else{
-              	  		alert("该车还没有借出");
-              	  	}
-              	    
-              	 }
-               }
-           }]
+                     ]]
+          
          });
 
       	

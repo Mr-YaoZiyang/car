@@ -30,39 +30,20 @@
 		    Dialog Content.
 		</div>
       <script type="text/javascript">
-      	function fnStatus(value,row,index){
-      		if(value==1){
-      			return '<span>申请中</span>'  
-      		}else if(value==2){
-      			return '<span>同意出车</span>';
-      		}else if(value==3){
-      			return '<span>不同意出车</span>';
-      		}else if(value==4){
-      			return '<span>已出车</span>';
-      		}else if(value==5){
-      			return '<span>已还车</span>';
-      		}else if(value=6){
-      			return '<span>已入库</span>';
-      		}
-          
-        }
-      
-      
       	$('#mytb').datagrid({
-           title: '驾驶员表',  //表格名称
+           title: '部门员工',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:800,   //表格宽度
+           width:950,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
-           url:'userApplyFor.do',   //获取表格数据时请求的地址
+           url:'deptEmployeesInfo.do',   //获取表格数据时请求的地址
            columns:[[
-               {field:'APP_TIME',title:'申请时间',width:150,hidden:false},
-               {field:'APP_LEAVING_DATE',title:'出车时间',width:100},
-               {field:'PLANED_RETURN_TIME',title:'预计还车时间',width:100},
-               {field:'USING_REASON',title:'原因',width:100},
-               {field:'DESTINATION',title:'目的地',width:100},
-               {field:'APPROVER_STATUS',title:'状态',width:100,formatter:fnStatus}
-             
+        	   {field:'USER_NAME',title:'姓名',width:100,hidden:false},
+               {field:'USER_ACCOUNT',title:'账号',width:150},
+               {field:'USER_TEL',title:'电话',width:100},
+               {field:'SEX',title:'性别',width:100},
+               {field:'USER_AGE',title:'年龄',width:100},
+               {field:'USER_ADDRESS',title:'地址',width:200}
            ]],
            pagination:true,//如果表格需要支持分页，必须设置该选项为true
            pageSize:5,   //表格中每页显示的行数
@@ -71,47 +52,14 @@
            nowrap: false,   
            striped: true,  //奇偶行是否使用不同的颜色
            method:'POST',   //表格数据获取方式,请求地址是上面定义的url
-           sortName: 'CARAPP_ID',  //按照ID列的值排序
+           sortName: 'USER_ID',  //按照ID列的值排序
            sortOrder: 'desc',  //使用倒序排序
-           idField: 'CARAPP_ID',
+           idField: 'USER_ID',
            loadMsg:'数据正在努力加载，请稍后...',   //加载数据时显示提示信息
            frozenColumns: [[  //固定在表格左侧的栏
                        {field: 'ck', checkbox: true},
-                     ]],
-           toolbar: [{
-        	   text: '还车',
-               iconCls: 'icon-add',
-               handler: function() {
-            	   var rows = $('#mytb').datagrid('getSelections'); //获取你选择的所有行 
-              	 //循环所选的行
-              	 for(var i =0;i<rows.length;i++){
-              		//获取行号，根据行号静态的移除行
-              		var index = $('#mytb').datagrid('getRowIndex',rows[i]);//获取某行的行号
-              	  	//alert(index);
-              		///获取id，根据id删除数据
-              	  	var carappid=rows[i].CARAPP_ID;
-              	  	//alert(name);
-              	  	
-              	  	if(rows[i].APPROVER_STATUS==4){
-	              	  	$.post(
-	                  			'returnCar.do',
-	                  			{carAppId:carappid},
-	                  			function(data){
-	                  				if(data.flag==true){
-	                  					alert("还车成功"); //通过行号移除该行
-	                  				}else{
-	                  					alert("还车失败！");
-	                  				}
-	                  			},
-	                  			'json'
-	                  	  ); 
-              	  	}else{
-              	  		alert("该车还没有借出");
-              	  	}
-              	    
-              	 }
-               }
-           }]
+                     ]]
+           
          });
 
       	

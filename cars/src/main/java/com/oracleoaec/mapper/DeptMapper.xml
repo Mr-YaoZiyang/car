@@ -24,5 +24,8 @@
 	<update id="deleteDept" parameterType="int">
 		update dept set dept_status = 0  where dept_id = #{deptId}
 	</update>
-
+	
+	
+	
+	
 </mapper>

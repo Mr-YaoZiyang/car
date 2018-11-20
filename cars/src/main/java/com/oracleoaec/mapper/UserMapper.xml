@@ -45,5 +45,11 @@
 		user_address=#{userAddress}
 		where user_id = #{userId}
 	</update>
-	<!-- ,province_id=#{provinceId},city_id=#{cityId} -->
+	
+	<select id="queryDeptEmployees" resultType="map" parameterType="int">
+		select * from users u
+		join dept d on u.dept_id = d.dept_id
+		join sex s on s.sex_id = u.sex_id
+		where  u.dept_id = #{deptId}
+	</select>
 </mapper>
