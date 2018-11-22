@@ -6,33 +6,25 @@
 <head>
 <meta charset="utf-8">
 <title>添加用户</title>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/jQuery.min.1.9.1.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/plug/css/layui.css" />
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/plug/layui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jQuery.min.1.9.1.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/plug/css/layui.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/plug/layui.js"></script>
 <script>
     layui.use('form', function () {
         var form = layui.form;
+        form.on('select(province)', function(data){
+    		/* "/api/getCity?pid="+data.value */
+    		$.getJSON('city.do?provinceId='+data.value, function(data){
+    			var optionstring = "";
+    		    $.each(data, function(i,obj){
+    		     optionstring += "<option value=\"" + obj.CITY_ID + "\" >" + obj.CITY_NAME + "</option>";
+    		    });
+    		    $("#city").html('<option value=""></option>' + optionstring);
+    		    form.render('select'); //这个很重要
+    		});
+    	});
     });
     
-    function changeProvince(){
-		$.post(
-			'city.do',
-			{
-				provinceId:$('#province').val()
-			},
-			function(data){
-				$("#city option").remove();
-				//$("#city").append("<option value='0'>--请选择--</option>")
-				$.each(data, function(index,obj) {
-					$("#city").append("<option value='"+obj.CITY_ID+"'>"+obj.CITY_NAME+"</option>");
-				});
-			},
-			'json'
-		);
-	}
 </script>
 </head>
 <body>
@@ -80,19 +72,19 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">地址</label>
 			<div class="layui-input-inline">
-				<select name="provinceId" lay-verify="required" id="province" onchange="changeProvince();">
+				<select name="provinceId" lay-verify="required" id="province" lay-filter="province">
 					<option value=""></option>
 					<c:forEach items="${requestScope.provinceList }" var="m">
 						<option value="${m.PROVINCE_ID }">${m.PROVINCE_NAME }</option>
 					</c:forEach>
 				</select>
 			</div>
-			<!-- <div class="layui-input-inline">
+			<div class="layui-input-inline">
 				<select name="cityId" lay-verify="required" id="city">
 					<option value=""></option>
 					
 				</select>
-			</div> -->
+			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">详细地址</label>

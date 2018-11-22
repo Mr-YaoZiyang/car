@@ -12,7 +12,10 @@
 		select * from users u 
 		inner join roles r on r.role_id = u.role_id
 		inner join sex s on s.sex_id = u.sex_id
-		inner join dept d on d.dept_id = u.dept_id where u.user_status = 1
+		inner join dept d on d.dept_id = u.dept_id 
+		inner join province p on p.province_id = u.province_id
+		inner join city c on c.city_id = u.city_id
+		where u.user_status = 1
 	</select>
 	
 	<select id="findByPage" parameterType="Map" resultType="hashMap">
@@ -26,9 +29,9 @@
 
 	<insert id="insertUser" parameterType="com.oracleoaec.pojo.User">
 		insert into users(user_id,role_id,sex_id,dept_id,user_name,user_account,user_pwd,
-		user_tel,user_age,user_address,user_status)
+		user_tel,user_age,user_address,user_status,province_id,city_id)
 		values(seq_users.nextval,#{roleId},#{sexId},#{deptId},#{userName},#{userAccount},#{userPwd},
-			#{userTel},#{userAge},#{userAddress},1)
+			#{userTel},#{userAge},#{userAddress},1,#{provinceId},#{cityId})
 	</insert>
 	
 	<update id="deleteUser" parameterType="int">
@@ -42,7 +45,14 @@
 	<update id="updateUser" parameterType="com.oracleoaec.pojo.User">
 		update users set  role_id = #{roleId},sex_id=#{sexId},dept_id=#{deptId},user_name=#{userName},
 		user_account=#{userAccount},user_pwd=#{userPwd},user_tel=#{userTel},user_age=#{userAge},
-		user_address=#{userAddress}
+		user_address=#{userAddress},province_id=#{provinceId},city_id=#{cityId}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="editPersonalCenter" parameterType="com.oracleoaec.pojo.User">
+		update users set  role_id = #{roleId},sex_id=#{sexId},dept_id=#{deptId},user_name=#{userName},
+		user_account=#{userAccount},user_tel=#{userTel},user_age=#{userAge},
+		user_address=#{userAddress},province_id=#{provinceId},city_id=#{cityId}
 		where user_id = #{userId}
 	</update>
 	
@@ -52,4 +62,8 @@
 		join sex s on s.sex_id = u.sex_id
 		where  u.dept_id = #{deptId}
 	</select>
+	
+	<update id="updateUserPwd" parameterType="com.oracleoaec.pojo.User">
+		update users set user_pwd=#{userPwd} where user_id = #{userId}
+	</update>
 </mapper>

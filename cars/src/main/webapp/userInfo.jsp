@@ -33,7 +33,7 @@
       	$('#mytb').datagrid({
            title: '用户表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:1050,   //表格宽度
+           width:1250,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'allUserInfo.do',   //获取表格数据时请求的地址
@@ -43,6 +43,8 @@
              {field:'USER_PWD',title:'密码',width:100},
              {field:'USER_TEL',title:'电话',width:100},
              {field:'USER_AGE',title:'年龄',width:100},
+             {field:'PROVINCE_NAME',title:'省',width:100},
+             {field:'CITY_NAME',title:'市',width:100},
              {field:'USER_ADDRESS',title:'地址',width:100},
              {field:'SEX',title:'性别',width:100},
              {field:'ROLE_NAME',title:'角色',width:100},

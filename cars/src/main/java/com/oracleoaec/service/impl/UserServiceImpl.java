@@ -64,5 +64,14 @@ public class UserServiceImpl implements UserService {
 		List<Map<String,Object>> employeesList = um.queryDeptEmployees(deptId);
 		return employeesList;
 	}
-
+	@Override
+	public int editPersonalCenter(User user) {
+		int i = um.editPersonalCenter(user);
+		return i;
+	}
+	@Override
+	public int updateUserPwd(User user) {
+		int i = um.updateUserPwd(user);
+		return i;
+	}
 }

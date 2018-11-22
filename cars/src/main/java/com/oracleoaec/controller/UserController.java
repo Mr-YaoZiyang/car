@@ -154,6 +154,23 @@ public class UserController {
 		return "UpdateUser";
 	}
 	
+	@RequestMapping("personalCenter.do")
+	public String personalCenter(HttpServletRequest request) {
+
+		List<Map<String,Object>> provinceList = pcs.queryAllProvince();
+		request.setAttribute("provinceList", provinceList);
+		
+		List<Map<String,Object>> roleList = rs.queryAllRole();
+		request.setAttribute("roleList", roleList);
+		
+		List<Map<String, Object>> deptList = ds.queryAllDept();
+		request.setAttribute("deptList", deptList);
+		
+		List<Map<String, Object>> sexList = sexs.queryAllSex();
+		request.setAttribute("sexList", sexList);
+		
+		return "personalCenter";
+	}
 	@RequestMapping("UpdateUserInfo.do")
 	public String UpdateUserInfo(User user,HttpServletRequest request) {
 		System.out.println(user.toString());
@@ -171,5 +188,34 @@ public class UserController {
 		return list;
 
 	}
-	
+	@RequestMapping("editPersonalCenter.do")
+	public String editPersonalCenter(User user,HttpServletRequest request) {
+		System.out.println(user.toString());
+		int i = us.editPersonalCenter(user);
+		return "carInfo";
+	}
+	@RequestMapping("checkPwd.do")
+	@ResponseBody
+	public Map<String,Object> checkPwd(User user,HttpServletRequest request) {
+		Map<String, Object> userMap = us.queryUserById(user.getUserId());
+		Map<String, Object> map = new HashMap<>();
+		if(user.getUserPwd().equals(userMap.get("USER_PWD"))) {
+			map.put("flag", true);
+		}else {
+			map.put("flag", false);
+		}
+		return map;
+	}
+	@RequestMapping("updatePwd.do")
+	@ResponseBody
+	public Map<String,Object> updatePwd(User user,HttpServletRequest request) {
+		int i = us.updateUserPwd(user);
+		Map<String, Object> map = new HashMap<>();
+		if(i>0) {
+			map.put("flag", true);
+		}else {
+			map.put("flag", false);
+		}
+		return map;
+	}
 }

@@ -50,4 +50,8 @@ public interface UserService {
 	int updateUser(User user);
 	
 	List<Map<String, Object>> queryDeptEmployees(Integer deptId);
+	
+	int editPersonalCenter(User user);
+	
+	int updateUserPwd(User user);
 }
