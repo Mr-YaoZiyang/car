@@ -51,7 +51,8 @@
       	$('#mytb').datagrid({
            title: '驾驶员表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:800,   //表格宽度
+           fitColumns:true,
+           //width:800,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'userApplyFor.do',   //获取表格数据时请求的地址

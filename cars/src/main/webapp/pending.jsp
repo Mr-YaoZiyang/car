@@ -4,7 +4,7 @@
  <html>
   <head>
       <meta charset="utf-8"/>
-       <title>武侠小说人物</title>
+       <title></title>
     <!--导入相关插件-->
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jQuery.min.1.9.1.js"></script>
     <!-- //引入 jQuery EasyUI 核心库，这里采用的是 1.3.6 -->
@@ -33,7 +33,8 @@
       	$('#mytb').datagrid({
            title: '待审批车辆',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:950,   //表格宽度
+           //width:950,   //表格宽度
+           fitColumns:true,
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'allPendingInfo.do',   //获取表格数据时请求的地址

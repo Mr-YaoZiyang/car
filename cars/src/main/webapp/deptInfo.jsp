@@ -33,7 +33,8 @@
       	$('#mytb').datagrid({
            title: '部门表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:500,   //表格宽度
+           fitColumns:true,
+           //width:500,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'allDept.do',   //获取表格数据时请求的地址

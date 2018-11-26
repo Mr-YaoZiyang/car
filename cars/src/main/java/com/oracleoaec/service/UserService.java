@@ -3,6 +3,7 @@ package com.oracleoaec.service;
 import java.util.List;
 import java.util.Map;
 
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.pojo.User;
 
 public interface UserService {
@@ -23,7 +24,7 @@ public interface UserService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List<Map<String, Object>> findByPage(int pageNo,int pageSize);
+	public PageBean findByPage(Map<String, Object> map);
 	/**
 	 * ÃÌº””√ªß
 	 * @param user

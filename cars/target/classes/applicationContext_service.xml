@@ -50,4 +50,8 @@
 	<bean id="schedulingService" class="com.oracleoaec.service.impl.SchedulingServiceImpl">
 		<property name="sm" ref="schedulingMapper" />
 	</bean>
+	
+	<bean id="pageService" class="com.oracleoaec.service.impl.PageServiceImpl">
+		<property name="pm" ref="pageMapper" />
+	</bean>
 </beans>

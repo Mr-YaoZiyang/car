@@ -33,7 +33,8 @@
       	$('#mytb').datagrid({
            title: '用户表',  //表格名称
            iconCls: 'icon-edit',  //图标
-           width:1250,   //表格宽度
+           fitColumns:true,
+           //width:1250,   //表格宽度
            height:'auto',   //表格高度，可指定高度，可自动
            border:true,  //表格是否显示边框
            url:'allUserInfo.do',   //获取表格数据时请求的地址
@@ -130,7 +131,17 @@
                      }
                  }]
          });
-
+      	//分页组件配合分页查询使用
+		//分页查询的参数
+		//设置分页组件的一个参数
+		/* var p = $("#mytb").datagrid("getPager");
+		p.pagination({
+			onSelectPage:function(pageNumber, pageSize){
+				$(this).pagination('loading');
+				alert('url?page='+pageNumber+'&rows='+pageSize);
+				$(this).pagination('loaded');
+			}
+		}); */
       	
        </script>
    </body>

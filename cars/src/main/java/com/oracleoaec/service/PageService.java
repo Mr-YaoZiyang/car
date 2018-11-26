@@ -1,11 +1,14 @@
-package com.oracleoaec.mapper;
+package com.oracleoaec.service;
 
 import java.util.Map;
 
 import com.oracleoaec.pojo.PageBean;
 
-public interface PageMapper {
-	
+public interface PageService {
+	/**
+	 * 
+	 * @param pageMap
+	 * @return
+	 */
 	PageBean queryPageBean(Map<String, Object> pageMap);
-	
 }

@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.pojo.User;
 import com.oracleoaec.service.DeptService;
+import com.oracleoaec.service.PageService;
 import com.oracleoaec.service.ProvinceCityService;
 import com.oracleoaec.service.RoleService;
 import com.oracleoaec.service.SexService;
@@ -42,6 +44,11 @@ public class UserController {
 	@Autowired
 	@Qualifier("provinceCityService")
 	private ProvinceCityService pcs;
+	
+	@Autowired
+	@Qualifier("pageService")
+	private PageService ps;
+	
 	
 	@RequestMapping("login.do")
 	@ResponseBody
@@ -73,19 +80,32 @@ public class UserController {
 	
 	@RequestMapping("allUserInfo.do")
 	@ResponseBody
-	public List<Map<String,Object>> AllUserInfo(HttpServletRequest request) {
+	public PageBean AllUserInfo(HttpServletRequest request) {
 		
-		List<Map<String,Object>> queryAllUsers = us.queryAllUsers();
+		//List<Map<String,Object>> queryAllUsers = us.queryAllUsers();
 		
-		int currentPage=Integer.parseInt(request.getParameter("page"));
-		int pageSize=Integer.parseInt(request.getParameter("rows"));
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		/*String sql = "select * from users u " + 
+				"		inner join roles r on r.role_id = u.role_id" + 
+				"		inner join sex s on s.sex_id = u.sex_id" + 
+				"		inner join dept d on d.dept_id = u.dept_id " + 
+				"		inner join province p on p.province_id = u.province_id" + 
+				"		inner join city c on c.city_id = u.city_id" + 
+				"		where u.user_status = 1";*/
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		
-		return queryAllUsers;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		//pageMap.put("sql", sql);
+		PageBean pageBean = us.findByPage(pageMap);
+		System.out.println(pageBean.toString());
+		return pageBean;
 		/*Integer pageNo=Integer.parseInt(request.getParameter("page"));
 		Integer pageSize = Integer.parseInt(request.getParameter("rows"));
 		return us.findByPage(pageNo, pageSize);
-*/
+		 */
 	}
 	
 	@RequestMapping("showAddUserInfo.do")

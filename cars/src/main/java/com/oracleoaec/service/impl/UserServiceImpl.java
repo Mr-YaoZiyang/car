@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.oracleoaec.mapper.UserMapper;
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.pojo.User;
 import com.oracleoaec.service.UserService;
 
@@ -30,15 +31,7 @@ public class UserServiceImpl implements UserService {
 		
 		return queryAllUsers;
 	}
-	@Override
-	public List<Map<String, Object>> findByPage(int pageNo, int pageSize) {
-		Map<String, Object> map=new HashMap<String,Object>();
-		map.put("pageNo", pageNo);
-		map.put("pageSize", pageSize);
-		return um.findByPage(map);
-		//baseDao.findAll(UserInfo.class, map,"findByPage");
-		
-	}
+	
 	@Override
 	public int insertUser(User user) {
 		int i = um.insertUser(user);
@@ -73,5 +66,15 @@ public class UserServiceImpl implements UserService {
 	public int updateUserPwd(User user) {
 		int i = um.updateUserPwd(user);
 		return i;
+	}
+	@Override
+	public PageBean findByPage(Map<String, Object> map) {
+		List<Map<String, Object>> rows = um.findByPage(map);
+		Integer size = rows.size();
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(size);
+		System.out.println(pageBean.toString());
+		return pageBean;
 	}
 }

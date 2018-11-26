@@ -18,14 +18,19 @@
 		where u.user_status = 1
 	</select>
 	
-	<select id="findByPage" parameterType="Map" resultType="hashMap">
+	
+	<select id="findByPage" parameterType="Map" resultType="Map">
 		select * from(select a.*,rownum rn from(
-			select * from users u 
-			inner join roles r on r.role_id = u.role_id
-			inner join sex s on s.sex_id = u.sex_id
-			inner join dept d on d.dept_id = u.dept_id ) a
-			where rownum&lt;=#{pageNo}*#{pageSize}) where rn&gt;(#{pageNo}-1)*#{pageSize}
-    </select>
+		select * from users u 
+		inner join roles r on r.role_id = u.role_id
+		inner join sex s on s.sex_id = u.sex_id
+		inner join dept d on d.dept_id = u.dept_id 
+		inner join province p on p.province_id = u.province_id
+		inner join city c on c.city_id = u.city_id
+		where u.user_status = 1 ) a
+		where rownum &lt;=${pageNumber}*${pageSize}) where rn>(${pageNumber}-1)*${pageSize}	
+	</select>
+	
 
 	<insert id="insertUser" parameterType="com.oracleoaec.pojo.User">
 		insert into users(user_id,role_id,sex_id,dept_id,user_name,user_account,user_pwd,

@@ -3,6 +3,7 @@ package com.oracleoaec.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.pojo.User;
 
 public interface UserMapper {
