@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarInfo;
 import com.oracleoaec.pojo.DriverInfo;
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.service.DriverService;
+import com.oracleoaec.service.PageService;
 import com.oracleoaec.service.SexService;
 
 @Controller
@@ -27,14 +29,36 @@ public class DriverController {
 	@Autowired
 	@Qualifier("sexService")
 	private SexService sex;
+
+	@Autowired
+	@Qualifier("pageService")
+	private PageService ps;
 	
 	@RequestMapping("allDirverInfo.do")
 	@ResponseBody
-	public List<Map<String,Object>> allDriver(HttpServletRequest request) {
-		List<Map<String,Object>> queryAllDriver = ds.queryAllDriver();
+	public PageBean allDriver(HttpServletRequest request) {
+		
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from driverInfo d " + 
+				"		inner join sex s on s.sex_id = d.sex_id" + 
+				"		where driver_status = 1";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1 = "select count(*) from driverInfo where driver_status = 1";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 		
 		
-		return queryAllDriver;
+		//List<Map<String,Object>> queryAllDriver = ds.queryAllDriver();
+		//return queryAllDriver;
 	}
 	@RequestMapping("showAddDriverInfo.do")
 	public String showAddCarInfo(HttpServletRequest request) {

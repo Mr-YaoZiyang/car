@@ -24,6 +24,14 @@ public class PageBean {
 	public String toString() {
 		return "PageBean [rows=" + rows + ", total=" + total + "]";
 	}
+	public PageBean(List<Map<String, Object>> rows, Integer total) {
+		super();
+		this.rows = rows;
+		this.total = total;
+	}
+	public PageBean() {
+		super();
+	}
 	
 	
 }

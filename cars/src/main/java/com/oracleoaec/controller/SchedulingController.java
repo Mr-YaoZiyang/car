@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarAppForm;
 import com.oracleoaec.pojo.CarInfo;
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.pojo.Scheduling;
 import com.oracleoaec.service.CarService;
 import com.oracleoaec.service.CarappformService;
+import com.oracleoaec.service.PageService;
 import com.oracleoaec.service.SchedulingService;
 
 @Controller
@@ -35,6 +37,10 @@ public class SchedulingController {
 	@Autowired
 	@Qualifier("carService")
 	private CarService cser;
+
+	@Autowired
+	@Qualifier("pageService")
+	private PageService ps;
 	
 	@RequestMapping("schedulingInfo.do")
 	public String schedulingInfo(Scheduling scheduling,HttpServletRequest request) {
@@ -53,19 +59,57 @@ public class SchedulingController {
 	}
 	@RequestMapping("allSchedulingInfo.do")
 	@ResponseBody
-	public List<Map<String, Object>> allSchedulingInfo(Scheduling scheduling,HttpServletRequest request) {
-		List<Map<String, Object>> queryAllScheduling = ss.queryAllScheduling();
+	public PageBean allSchedulingInfo(Scheduling scheduling,HttpServletRequest request) {
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from scheduling s" + 
+				"	    join users u on u.user_id = s.user_id" + 
+				"	    join carInfo c on c.car_id = s.car_id";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		return queryAllScheduling;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1= "select count(*) from scheduling s" + 
+				"	    join users u on u.user_id = s.user_id" + 
+				"	    join carInfo c on c.car_id = s.car_id";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("readySendCar.do")
 	@ResponseBody
-	public List<Map<String, Object>> readySendCar(Scheduling scheduling,HttpServletRequest request) {
+	public PageBean readySendCar(HttpServletRequest request) {
 		
-		List<Map<String, Object>> queryAllSendCar = ss.queryAllSendCar();
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from scheduling s" + 
+				"      join users u on u.user_id = s.user_id" + 
+				"      join carInfo c on c.car_id = s.car_id " + 
+				"      join carappform caf on caf.scheduling_id = s.scheduling_id" + 
+				"	    where caf.approver_status = 2";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		return queryAllSendCar;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1=  "select count(*) from scheduling s" + 
+				"      join users u on u.user_id = s.user_id" + 
+				"      join carInfo c on c.car_id = s.car_id " + 
+				"      join carappform caf on caf.scheduling_id = s.scheduling_id" + 
+				"	    where caf.approver_status = 2";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("showSchedulingInfo.do")
@@ -95,11 +139,32 @@ public class SchedulingController {
 	
 	@RequestMapping("readyPutStorage.do")
 	@ResponseBody
-	public List<Map<String, Object>> readyPutStorage(Scheduling scheduling,HttpServletRequest request) {
+	public PageBean readyPutStorage(HttpServletRequest request) {
 		
-		List<Map<String,Object>> list = ss.queryPutStorage();
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from scheduling s" + 
+				"      join users u on u.user_id = s.user_id" + 
+				"      join carInfo c on c.car_id = s.car_id " + 
+				"      join carappform caf on caf.scheduling_id = s.scheduling_id" + 
+				"	    where caf.approver_status = 5";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		return list;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1=  "select count(*) from scheduling s" + 
+				"      join users u on u.user_id = s.user_id" + 
+				"      join carInfo c on c.car_id = s.car_id " + 
+				"      join carappform caf on caf.scheduling_id = s.scheduling_id" + 
+				"	    where caf.approver_status = 5";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 		
 	}
 	@RequestMapping("showPutStorage.do")

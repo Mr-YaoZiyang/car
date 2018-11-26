@@ -4,7 +4,7 @@
  <html>
   <head>
       <meta charset="utf-8"/>
-       <title>武侠小说人物</title>
+       <title></title>
     <!--导入相关插件-->
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jQuery.min.1.9.1.js"></script>
     <!-- //引入 jQuery EasyUI 核心库，这里采用的是 1.3.6 -->

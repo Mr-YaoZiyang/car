@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarInfo;
 import com.oracleoaec.pojo.Dept;
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.service.DeptService;
+import com.oracleoaec.service.PageService;
 
 @Controller
 public class DeptController {
@@ -23,11 +25,29 @@ public class DeptController {
 	@Qualifier("deptService")
 	private DeptService ds;
 	
+	@Autowired
+	@Qualifier("pageService")
+	private PageService ps;
+	
 	@RequestMapping("allDept.do")
 	@ResponseBody
-	public List<Map<String, Object>> allDept(){
-		List<Map<String,Object>> queryAllDept = ds.queryAllDept();
-		return queryAllDept;
+	public PageBean allDept(HttpServletRequest request){
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from dept where dept_status = 1";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1="select count(*) from dept where dept_status = 1 ";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("AddDeptInfo.do")

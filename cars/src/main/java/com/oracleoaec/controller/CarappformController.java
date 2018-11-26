@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarAppForm;
 import com.oracleoaec.pojo.CarInfo;
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.service.CarService;
 import com.oracleoaec.service.CarappformService;
+import com.oracleoaec.service.PageService;
 
 @Controller
 public class CarappformController {
@@ -31,6 +33,10 @@ public class CarappformController {
 	@Autowired
 	@Qualifier("carService")
 	private CarService cser;
+
+	@Autowired
+	@Qualifier("pageService")
+	private PageService ps;
 	
 	@RequestMapping("applyForCarInfo.do")
 	public String applyForCarInfo(HttpServletRequest request) {
@@ -53,27 +59,66 @@ public class CarappformController {
 	
 	@RequestMapping("userApplyFor.do")
 	@ResponseBody
-	public List<Map<String, Object>> userApplyFor(HttpServletRequest request) {
+	public PageBean userApplyFor(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Map userMap = (Map) session.getAttribute("userMap");
 		System.out.println(userMap.get("USER_ID").toString());
-		List<Map<String, Object>> myApplyList = cs.queryCarappFormByUserId(new Integer(userMap.get("USER_ID").toString()));
 		
-		return myApplyList;
+		
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from carAppform  c " + 
+				"		join scheduling s on c.scheduling_id = s.scheduling_id " + 
+				"		where c.appuser_id = "+userMap.get("USER_ID").toString();
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1="select count(*) from carAppform  c " + 
+				"		join scheduling s on c.scheduling_id = s.scheduling_id " + 
+				"		where c.appuser_id = "+userMap.get("USER_ID").toString();
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("allPendingInfo.do")
 	@ResponseBody
-	public List<Map<String, Object>> allPendingInfo(HttpServletRequest request) {
+	public PageBean allPendingInfo(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Map userMap = (Map) session.getAttribute("userMap");
 		Integer deptId = new Integer(userMap.get("DEPT_ID").toString());
-		Map<String,Object> pendingMap = new HashMap<>();
-		pendingMap.put("appDeptId", deptId);
-		pendingMap.put("approverStatus", 1);
-		List<Map<String, Object>> pendingList = cs.querycarPending(pendingMap);
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from carAppform c " + 
+				"	    join scheduling s on c.scheduling_id = s.scheduling_id " + 
+				"	    join carinfo car on car.car_id = s.car_id" + 
+				"	    join users u on c.appuser_id = u.user_id " + 
+				"	    left join users us on us.user_id = c.approver_id" + 
+				"		where c.appDept_id = "+deptId+" and approver_status ="+1;
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		return pendingList;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1= "select count(*) from carAppform c " + 
+				"	    join scheduling s on c.scheduling_id = s.scheduling_id " + 
+				"	    join carinfo car on car.car_id = s.car_id" + 
+				"	    join users u on c.appuser_id = u.user_id " + 
+				"	    left join users us on us.user_id = c.approver_id" + 
+				"		where c.appDept_id = "+deptId+" and approver_status ="+1;
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("AgreeApproval.do")
@@ -125,30 +170,35 @@ public class CarappformController {
 	
 	@RequestMapping("allAfterPendingInfo.do")
 	@ResponseBody
-	public List<Map<String, Object>> allAfterPendingInfo(HttpServletRequest request) {
+	public PageBean allAfterPendingInfo(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Map userMap = (Map) session.getAttribute("userMap");
 		Integer deptId = new Integer(userMap.get("DEPT_ID").toString());
-		Map<String,Object> pendingMap = new HashMap<>();
-		pendingMap.put("appDeptId", deptId);
-		pendingMap.put("approverStatus", 2);
-		List<Map<String, Object>> afterPendingList = new ArrayList<>();
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		String sql = "select * from carAppform c " + 
+				"	    join scheduling s on c.scheduling_id = s.scheduling_id " + 
+				"	    join carinfo car on car.car_id = s.car_id" + 
+				"	    join users u on c.appuser_id = u.user_id " + 
+				"	    left join users us on us.user_id = c.approver_id" + 
+				"		where c.appDept_id = "+deptId+" and approver_status >"+1;
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		List<Map<String, Object>> AgreeList = cs.querycarPending(pendingMap);
-		afterPendingList.addAll(AgreeList);
-		pendingMap.put("approverStatus", 3);
-		List<Map<String, Object>> disapproveList = cs.querycarPending(pendingMap);
-		afterPendingList.addAll(disapproveList);
-		pendingMap.put("approverStatus", 4);
-		List<Map<String, Object>> sendCarList = cs.querycarPending(pendingMap);
-		afterPendingList.addAll(sendCarList);
-		pendingMap.put("approverStatus", 5);
-		List<Map<String, Object>> returnCarList = cs.querycarPending(pendingMap);
-		afterPendingList.addAll(returnCarList);
-		pendingMap.put("approverStatus", 6);
-		List<Map<String, Object>> putStorageList = cs.querycarPending(pendingMap);
-		afterPendingList.addAll(putStorageList);
-		return afterPendingList;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1= "select count(*) from carAppform c " + 
+				"	    join scheduling s on c.scheduling_id = s.scheduling_id " + 
+				"	    join carinfo car on car.car_id = s.car_id" + 
+				"	    join users u on c.appuser_id = u.user_id " + 
+				"	    left join users us on us.user_id = c.approver_id" + 
+				"		where c.appDept_id = "+deptId+" and approver_status >"+1;
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("returnCar.do")

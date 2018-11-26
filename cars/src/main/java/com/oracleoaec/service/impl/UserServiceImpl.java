@@ -70,10 +70,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public PageBean findByPage(Map<String, Object> map) {
 		List<Map<String, Object>> rows = um.findByPage(map);
-		Integer size = rows.size();
+		List<Map<String, Object>> queryAllUsers = um.queryAllUsers();
 		PageBean pageBean = new PageBean();
 		pageBean.setRows(rows);
-		pageBean.setTotal(size);
+		pageBean.setTotal(queryAllUsers.size());
 		System.out.println(pageBean.toString());
 		return pageBean;
 	}

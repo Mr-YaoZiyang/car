@@ -130,14 +130,14 @@
 		//分页组件配合分页查询使用
 		//分页查询的参数
 		//设置分页组件的一个参数
-		var p = $("#mytb").datagrid("getPager");
+/* 		var p = $("#mytb").datagrid("getPager");
 		p.pagination({
 			onSelectPage:function(pageNumber, pageSize){
 				$(this).pagination('loading');
 				alert('pageNumber:'+pageNumber+',pageSize:'+pageSize);
 				$(this).pagination('loaded');
 			}
-		});
+		}); */
       	
       	
        </script>

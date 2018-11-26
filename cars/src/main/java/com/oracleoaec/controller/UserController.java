@@ -81,31 +81,28 @@ public class UserController {
 	@RequestMapping("allUserInfo.do")
 	@ResponseBody
 	public PageBean AllUserInfo(HttpServletRequest request) {
-		
-		//List<Map<String,Object>> queryAllUsers = us.queryAllUsers();
-		
 		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
 		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
 		System.out.println(pageNumber+","+pageSize);
-		/*String sql = "select * from users u " + 
+		String sql = "select * from users u " + 
 				"		inner join roles r on r.role_id = u.role_id" + 
 				"		inner join sex s on s.sex_id = u.sex_id" + 
 				"		inner join dept d on d.dept_id = u.dept_id " + 
 				"		inner join province p on p.province_id = u.province_id" + 
 				"		inner join city c on c.city_id = u.city_id" + 
-				"		where u.user_status = 1";*/
+				"		where u.user_status = 1";
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
 		pageMap.put("pageNumber", pageNumber);
 		pageMap.put("pageSize", pageSize);
-		//pageMap.put("sql", sql);
-		PageBean pageBean = us.findByPage(pageMap);
-		System.out.println(pageBean.toString());
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1="select count(*) from users u where u.user_status = 1 ";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
 		return pageBean;
-		/*Integer pageNo=Integer.parseInt(request.getParameter("page"));
-		Integer pageSize = Integer.parseInt(request.getParameter("rows"));
-		return us.findByPage(pageNo, pageSize);
-		 */
 	}
 	
 	@RequestMapping("showAddUserInfo.do")
@@ -199,13 +196,32 @@ public class UserController {
 	}
 	@RequestMapping("deptEmployeesInfo.do")
 	@ResponseBody
-	public List<Map<String,Object>> deptEmployeesInfo(HttpServletRequest request) {
+	public PageBean deptEmployeesInfo(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Map userMap = (Map) session.getAttribute("userMap");
 		Integer deptId = new Integer(userMap.get("DEPT_ID").toString());
-		List<Map<String,Object>> list = us.queryDeptEmployees(deptId);
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from users u" + 
+				"		join dept d on u.dept_id = d.dept_id" + 
+				"		join sex s on s.sex_id = u.sex_id" + 
+				"		where  u.dept_id = "+deptId;
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		return list;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1="select count(*) from users u" + 
+				"		join dept d on u.dept_id = d.dept_id" + 
+				"		join sex s on s.sex_id = u.sex_id" + 
+				"		where  u.dept_id = "+deptId;
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 
 	}
 	@RequestMapping("editPersonalCenter.do")

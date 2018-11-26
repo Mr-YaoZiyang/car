@@ -4,12 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracleoaec.mapper.PageMapper">
 	
-	<select id="queryPageBean" resultType="com.oracleoaec.pojo.PageBean" parameterType="hashMap">
+	<select id="queryPageBean" resultType="hashMap" parameterType="hashMap">
 		select * from 
 		(select m.*,rownum rn from 
-		(#{sql}) m 
-		where rownum &lt;= #{pageSize}*#{pageNumber}) m1 
-		where rn  &gt; #{pageSize}*(#{pageNumber}-1)
+		(${sql}) m 
+		where rownum &lt;= ${pageSize}*${pageNumber}) m1 
+		where rn  &gt; ${pageSize}*(${pageNumber}-1)
+	</select>
+	
+	<select id="queryTotal" resultType="int" parameterType="string">
+		${value} 
 	</select>
 	
 </mapper>

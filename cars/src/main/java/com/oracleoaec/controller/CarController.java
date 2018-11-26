@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracleoaec.pojo.CarInfo;
+import com.oracleoaec.pojo.PageBean;
 import com.oracleoaec.service.CarService;
 import com.oracleoaec.service.CarTypeService;
+import com.oracleoaec.service.PageService;
 
 @Controller
 public class CarController {
@@ -26,20 +28,54 @@ public class CarController {
 	@Qualifier("carTypeService")
 	private CarTypeService cts;
 	
+	@Autowired
+	@Qualifier("pageService")
+	private PageService ps;
+	
 	@RequestMapping("allCarInfo.do")
 	@ResponseBody
-	public List<Map<String, Object>> AllCarInfo(){
+	public PageBean AllCarInfo(HttpServletRequest request){
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from CARINFO c" + 
+				"		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID" + 
+				"		 where c.CAR_STATUS > 0";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		List<Map<String, Object>> queryAllCar = cs.queryAllCar();
-		return queryAllCar;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1="select count(*) from CARINFO c where c.CAR_STATUS > 0 ";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("allUserCarInfo.do")
 	@ResponseBody
-	public List<Map<String, Object>> allUserCarInfo(){
+	public PageBean allUserCarInfo(HttpServletRequest request){
+		Integer pageNumber=Integer.parseInt(request.getParameter("page"));
+		Integer pageSize=Integer.parseInt(request.getParameter("rows"));
+		System.out.println(pageNumber+","+pageSize);
+		String sql = "select * from CARINFO c" + 
+				"		inner join carType ct on c.CARTYPE_ID = ct.CARTYPE_ID" + 
+				"		 where c.CAR_STATUS =1";
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		
-		List<Map<String, Object>> queryAllCar = cs.queryAllUserCar();
-		return queryAllCar;
+		pageMap.put("pageNumber", pageNumber);
+		pageMap.put("pageSize", pageSize);
+		pageMap.put("sql", sql);
+		List<Map<String, Object>> rows = ps.queryPageBean(pageMap);
+		String sql1="select count(*) from CARINFO c where c.CAR_STATUS =1 ";
+		Integer total = ps.queryTotal(sql1);
+		PageBean pageBean = new PageBean();
+		pageBean.setRows(rows);
+		pageBean.setTotal(total);
+		return pageBean;
 	}
 	
 	@RequestMapping("showAddCarInfo.do")
